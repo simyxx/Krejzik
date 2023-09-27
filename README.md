@@ -1,2 +1,2 @@
 # Krejzik
-A blog website based around Crazy Wolf (the energy drink).
+A social media site inspired by the brilliant energy drink called Crazy Wolf.
