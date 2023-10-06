@@ -82,7 +82,6 @@ a{
     -webkit-background-clip:text;
     color:rgb(223, 104, 57);
     display:block;
-    text-align:center;
     transition: color .2s ease-in-out;
 }
 .text-grad:hover {
@@ -157,6 +156,97 @@ a{
     border-color: #F16529;
     outline: none;
 }
+
+.menu_buttons {
+    width: 100px;
+    display: inline-block;
+    margin: 2px;
+    font-size: 15px;
+}
+.post-img {
+    width: 75px;
+    margin-right: 4px;
+    border-radius: 50%;
+}
+.post-bar {
+    margin-top: 20px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 30px;
+}
+.post {
+    padding: 4px;
+    font-size: 13px;
+    display: flex;
+    margin-bottom: 20px;
+}
+.post-owner {
+    font-weight: bold;
+}
+.post a {
+    font-size: 12px;
+}
+.friends-area{
+    min-height: 400px;
+    flex:1;
+    margin-right: 10px;
+}
+.posts-area {
+    min-height: 400px;
+    flex:2.5;
+}
+.friends-img{
+    width: 75px;
+    float: left;
+    margin: 8px;
+    border-radius: 50%;
+}
+.friends-bar{
+    background-color: white;
+    min-height: 400px;
+    margin-top: 20px;
+    padding: 8px;
+    border-radius: 30px;
+}
+.friends {
+    clear: both;
+    font-weight: bold;
+}
+.friends-buttons {
+    font-size: 15px;
+}
+.content {
+    width: 800px;
+    margin: auto;
+    min-height: 400px;
+}
+.cover {
+    background-color: white;
+    text-align: center;
+    border-radius: 30px;
+}
+.cover-img {
+    width: 100%;
+}
+.cover-pfp{
+    width: 150px;
+    margin-top: -250px;
+    border-radius: 50%;
+    border: solid 2px white;
+}
+.below-cover{
+    display: flex;
+}
+.pfp {
+    width: 40px; 
+    border-radius: 50%;
+}
+.username {
+    font-size: 20px;
+}
+.new-feed {
+    margin-top: 10px;
+}
 button{
     border: 0px solid transparent;
     background-image: linear-gradient(to right, #E44D26 0%, #F16529  51%, #E44D26  100%);
@@ -171,61 +261,40 @@ button{
     display: block;
     cursor: pointer;
     margin: auto;
-}
-button:hover{
+  }
+  button:hover{
     background-position: right center;
     color: #fff;
     text-decoration: none;
-}
-button:active{
+  }
+  button:active{
     transform: scale(0.95);  
+  }
+textarea {
+    resize: none;
+    &.auto {
+        overflow-y: hidden;
+    }
 }
-input[type="file"]::file-selector-button {
-    border-radius: 4px;
-    margin-bottom: 10px;
-    padding: 0 16px;
-    height: 40px;
-    cursor: pointer;
-    background-color: white;
-    border: 1px solid rgba(0, 0, 0, 0.16);
-    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
-    margin-right: 16px;
-    transition: background-color 200ms;
-}
-input[type="file"]::file-selector-button:hover {
-    background-color: #f3f4f6;
-}
-input[type="file"]::file-selector-button:active {
-    background-color: #e5e7eb;
-}
-input[type="file"] {
-    position: relative;
+textarea {
+    -webkit-appearance: none;
+    box-sizing: border-box;
     outline: none;
-    padding: 4px;
-    margin: -4px;
-}
-  
-input[type="file"]::file-selector-button {
-    width: 136px;
-    color: transparent;
-}
-input[type="file"]::before {
-    position: absolute;
-    pointer-events: none;
-    top: 10px;
-    left: 16px;
-    height: 20px;
-    width: 20px;
-    content: "";
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230964B0'%3E%3Cpath d='M18 15v3H6v-3H4v3c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-3h-2zM7 9l1.41 1.41L11 7.83V16h2V7.83l2.59 2.58L17 9l-5-5-5 5z'/%3E%3C/svg%3E");
-}
-input[type="file"]:focus-within::file-selector-button,
-input[type="file"]:focus::file-selector-button {
-  outline: 2px solid #F16529;
-}
-@supports (-moz-appearance: none) {
-    input[type="file"]::file-selector-button {
-      color: #000;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 22px;
+    padding: 16px 20px;
+    border-radius: 30px;
+    border: none;
+    background: #fff;
+    transition: box-shadow .25s;
+    box-shadow: inset 0 0 0 1px var(--border-color, #E1E6F9), 0 0 0 1px var(--focus-color, transparent);
+    &:focus {
+       --focus-color: #F16529;
+    }
+    &:hover {
+        --border-color: #F16529;
     }
 }
 @keyframes animatedgradient {
