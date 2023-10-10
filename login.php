@@ -30,7 +30,7 @@
                 </div>
                 <button type="submit">Přihlásit se</button>
             </form>
-            <a href="register.php" class="text-grad reg-text">Zaregistrovat se</a>
+            <a href="signup.php" class="text-grad reg-text">Zaregistrovat se</a>
         </div>
     </main>
 </body>

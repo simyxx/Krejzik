@@ -14,113 +14,7 @@
         background-position: right;
         width: 400px; 
     }
-    #pfp {
-        width: 40px; 
-        border-radius: 50%;
-    }
-    #content {
-        width: 800px;
-        margin: auto;
-        min-height: 400px;
-    }
-    #cover {
-        background-color: white;
-        text-align: center;
-        color: #405d9b;
-    }
-    #cover-img {
-        width: 100%;
-    }
-    #cover-pfp{
-        width: 150px;
-        margin-top: -250px;
-        border-radius: 50%;
-        border: solid 2px white;
-    }
-    #menu_buttons {
-        width: 100px;
-        display: inline-block;
-        margin: 2px;
-    }
-    #username {
-        font-size: 20px;
-    }
-    #below-cover{
-        display: flex;
-    }
-    #friends-area{
-        min-height: 400px;
-        flex:1;
-        margin-right: 10px;
-    }
-    #posts-area {
-        min-height: 400px;
-        flex:2.5;
-    }
-    #friends-img{
-        width: 75px;
-        float: left;
-        margin: 8px;
-    }
-    #friends-bar{
-        background-color: white;
-        min-height: 400px;
-        margin-top: 20px;
-        padding: 8px;
-        color: #405d9b;
-    }
-    #friends {
-        clear: both;
-        font-size: 15px;
-        font-weight: bold;
-        color: #405d9b;
-    }
-    #new-feed {
-        border: solid thin #aaa;
-        padding: 10px;
-        background-color: white;
-        margin-top: 20px;
-    }
-    textarea {
-        width: 100%;
-        border: none;
-        font-size: 14px;
-        height: 60px;
-        resize: none;
-    }
-    #post_button {
-        float: right;
-        background-color: #F16529;
-        border: none;
-        color: white;
-        padding: 4px;
-        font-size: 14px;
-        border-radius: 2px;
-        width: 50px;
-    }
-    #post-img {
-        width: 75px;
-        margin-right: 4px;
-    }
-    #post-bar {
-        margin-top: 20px;
-        background-color: white;
-        padding: 10px;
-    }
-    #post {
-        padding: 4px;
-        font-size: 13px;
-        display: flex;
-        margin-bottom: 20px;
-    }
-    #post-owner {
-        font-weight: bold;
-        color: #405d9b;
-    }
-    #post a {
-        font-size: 12px;
 
-    }
 </style>
 <body>
     <header>
@@ -131,8 +25,14 @@
             </a>
             <ul class="nav-menu">
               <li class="nav-item">
-                <input type="text" placeholder="Vyhledejte své známé!" id="search-box">
-                <img src="img/selfie.jpg" id="pfp" alt="pfp">
+                  <form action="" class="search-bar">
+                      <input type="text" placeholder="Vyhledejte své známé!">
+                  </form>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="pfp-container">
+                    <img src="img/pfp.jpg" class="pfp-image" alt="PFP" width="50">
+                </a>
               </li>
             </ul>
           </nav>
@@ -140,106 +40,108 @@
     </header>
 
     <main>
-    <div id="content">
-        <div id="cover">
-            <img src="img/mountain.jpg" alt="cover img" id="cover-img">
-            <img src="img/selfie.jpg" alt="pfp" id="cover-pfp">
+    <div class="content">
+        <div class="cover">
+            <img src="img/mountain.jpg" alt="cover img" class="cover-img">
+            <img src="img/pfp.jpg" alt="pfp" class="cover-pfp">
             <br>
-                <div id="username">Marybanda</div>
+                <div class="username">Marykunda</div>
             <br>
-            <div id="menu_buttons">Timeline</div>
-            <div id="menu_buttons">About</div>
-            <div id="menu_buttons">Friends</div>
-            <div id="menu_buttons">Photos</div>
-            <div id="menu_buttons">Settings</div>
+            <a class="text-grad menu_buttons" href="">Timeline</a>
+            <a class="text-grad menu_buttons" href="">About</a>
+            <a class="text-grad menu_buttons" href="">Friends</a>
+            <a class="text-grad menu_buttons" href="">Photos</a>
+            <a class="text-grad menu_buttons" href="">Settings</a>
         </div>
 
-        <div id="below-cover">
-            <div id="friends-area">
-                <div id="friends-bar">
+        <div class="below-cover">
+            <div class="friends-area">
+                <div class="friends-bar">
                     
                     Friends <br>
 
-                    <div id="friends">
-                        <img id="friends-img" src="img/user1.jpg">
+                    <div class="friends">
+                        <img class="friends-img" src="img/user1.jpg">
                         <br>
-                        First user
+                        <a class="text-grad friends-buttons" href="">First user</a>
                     </div>
                     
-                    <div id="friends">
-                        <img id="friends-img" src="img/user2.jpg">
+                    <div class="friends">
+                        <img class="friends-img" src="img/user2.jpg">
                         <br>
-                        Second user
+                        <a class="text-grad friends-buttons" href="">Second user</a>
                     </div>
 
-                    <div id="friends">
-                        <img id="friends-img" src="img/user3.jpg">
+                    <div class="friends">
+                        <img class="friends-img" src="img/user3.jpg">
                         <br>
-                        Third user
+                        <a class="text-grad friends-buttons" href="">Third user</a>
                     </div>
 
-                    <div id="friends">
-                        <img id="friends-img" src="img/user4.jpg">
+                    <div class="friends">
+                        <img class="friends-img" src="img/user4.jpg">
                         <br>
-                        Fourth user
+                        <a class="text-grad friends-buttons" href="">Fourth user</a>
                     </div>
-
                 </div>
             </div>
 
-            <div id="posts-area">
+            <div class="posts-area">
 
-                <div id="new-feed">
+                <div class="new-feed">
                     <textarea placeholder="Co máte na mysli?"></textarea>
-                    <input type="submit" id="post_button" value="Přidat">
+                    <button type="submit">přidat</button>
                 </div>
 
-                <div id="post-bar">
-                    <div id="post">
+                <div class="post-bar">
+                    <div class="post">
                         <div>
-                            <img id="post-img" src="img/user1.jpg" alt="pfp">
+                            <img class="post-img" src="img/user1.jpg" alt="pfp">
                         </div>
                         <div>
-                            <div id="post-owner">First guy</div>
+                            <a class="text-grad post-owner" href="">First guy</a>
                             Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.  
                             Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.
                             <br><br>
                             <a href="">Like</a> . <a href="">Comment</a> . <span style="color:#999;">5. října 2023</span>
                         </div>
                     </div>
-
-                    <div id="post">
+                </div>
+                <div class="post-bar">
+                    <div class="post">
                         <div>
-                            <img id="post-img" src="img/user2.jpg" alt="pfp">
+                            <img class="post-img" src="img/user2.jpg" alt="pfp">
                         </div>
                         <div>
-                            <div id="post-owner">Second guy</div>
+                            <a class="text-grad post-owner" href="">Second guy</a>
                             Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.  
                             Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.
                             <br><br>
                             <a href="">Like</a> . <a href="">Comment</a> . <span style="color:#999;">5. října 2023</span>
                         </div>
                     </div>
-
-                    <div id="post">
+                </div>    
+                <div class="post-bar">
+                    <div class="post">
                         <div>
-                            <img id="post-img" src="img/user3.jpg" alt="pfp">
+                            <img class="post-img" src="img/user3.jpg" alt="pfp">
                         </div>
                         <div>
-                            <div id="post-owner">Third guy</div>
+                            <a class="text-grad post-owner" href="">Third guy</a>
                             Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.  
                             Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.
                             <br><br>
                             <a href="">Like</a> . <a href="">Comment</a> . <span style="color:#999;">5. října 2023</span>
                         </div>
                     </div>
-
-                    <div id="post">
+                </div>
+                <div class="post-bar">
+                    <div class="post">
                         <div>
-                            <img id="post-img" src="img/user4.jpg" alt="pfp">
+                            <img class="post-img" src="img/user4.jpg" alt="pfp">
                         </div>
                         <div>
-                            <div id="post-owner">First guy</div>
+                            <a class="text-grad post-owner" href="">Fourth guy</a>
                             Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.  
                             Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.
                             <br><br>
@@ -253,5 +155,15 @@
 
     </div>
     </main>
+    <script>
+        document.querySelectorAll('textarea').forEach(el => {
+    el.style.height = el.setAttribute('style', 'height: ' + el.scrollHeight + 'px');
+    el.classList.add('auto');
+    el.addEventListener('input', e => {
+        el.style.height = 'auto';
+        el.style.height = (el.scrollHeight) + 'px';
+    });
+});
+    </script>
 </body>
 </html>
