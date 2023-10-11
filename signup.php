@@ -1,26 +1,4 @@
-<!DOCTYPE html>
-
-
-<html lang="cs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krejzik | Registrace</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <header>
-        <nav class="navbar">
-            <a href="index.html" class="nav-logo">
-              <img src="img/silenyvlk.png" alt="Logo" class="logo">
-              <img src="img/krejzik.png" alt="Logo" class="logotext">
-            </a>
-          </nav>
-          <div class="navbar-bottom"></div>
-    </header>
-    <main>
-        
-        <?php 
+<?php 
 
         include("classes/connect.php");
         include("classes/signup.class.php");
@@ -41,13 +19,39 @@
                     echo $result;
                     echo "</div>";
                 }
+                else
+                {
+                    header("Location: login.php");
+                    die();
+                }
                 
-                $username = $_POST['Přezdívka'];
-                $gender = $_POST['Pohlaví'];
-                $email = $_POST['Email'];
+                $username = $_POST['username'];
+                $gender = $_POST['gender'];
+                $email = $_POST['email'];
             }
 
         ?>
+
+<!DOCTYPE html>        
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krejzik | Registrace</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="nav-logo">
+              <img src="img/silenyvlk.png" alt="Logo" class="logo">
+              <img src="img/krejzik.png" alt="Logo" class="logotext">
+            </a>
+          </nav>
+          <div class="navbar-bottom"></div>
+    </header>
+    <main>
+       
 
         <div class="login-box">
             <h2>Registrace</h2>
@@ -56,18 +60,17 @@
                 
                 <div class="input-container">
                     <label for="email">Uživatelské jméno:</label>
-                    <input value='<?php echo $username ?>' type="text" id="username" name="Přezdívka" placeholder="Zadejte jméno" >
+                    <input value='<?php echo $username ?>' type="text" id="username" name="username" placeholder="Zadejte jméno" >
                 </div>
 
                 <div class="input-container">
                     <label for="email">Email:</label>
-                    <input value='<?php echo $email ?>' type="text" id="email" name="Email" placeholder="Zadejte email" >
+                    <input value='<?php echo $email ?>' type="text" id="email" name="email" placeholder="Zadejte email" >
                 </div>
 
                 <div class="input-container">
                     <label for="gender">Pohlaví:</label>
-                    <select name="Pohlaví" id="gender">
-                        <option><?php echo $gender ?></option>
+                    <select name="gender" id="gender">
                         <option>Muž</option>
                         <option>Žena</option>
                         <option>Jiné</option>
@@ -76,15 +79,15 @@
 
                 <div class="input-container">
                     <label for="heslo">Heslo:</label>
-                    <input type="password" id="password" name="Heslo" placeholder="Zadejte heslo" >
+                    <input type="password" id="password" name="password" placeholder="Zadejte heslo" >
                 </div>
 
                 <div class="input-container">
                     <label for="heslo">Heslo znovu:</label>
-                    <input type="password" id="password-again" name="Heslo" placeholder="Zadejte znovu heslo" >
+                    <input type="password" id="password-again" name="password-again" placeholder="Zadejte znovu heslo" >
                 </div>
 
-                <input type="submit" id="button" value="Registrovat">
+                <input type="submit" id="button" value="Registrovat" name="submit">
                 
             </form>
 

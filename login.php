@@ -1,3 +1,35 @@
+<?php 
+
+        include("classes/connect.php");
+        include("classes/login.class.php");
+ 
+        $email = "";
+        $password = "";
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST')
+            {   
+                $signup = new Signup();
+                $result = $signup->evaluate($_POST);
+                
+                if ($result != "")
+                {
+                    echo "<div style='text-align:center;font-size:12px;color:white;background-color:grey;'>";
+                    echo "Nastala chyba: <br>";
+                    echo $result;
+                    echo "</div>";
+                }
+                else
+                {
+                    header("Location: login.php");
+                    die();
+                }
+                
+                $password = $_POST['password'];
+                $email = $_POST['email'];
+            }
+
+        ?>
+
 <!DOCTYPE html>
 <html lang="cs">
 <head>
