@@ -102,13 +102,13 @@ class Signup
     public function create_user($data)
     {
 
-        $username = ucfirst($data['username']);
-        $gender = $data['gender'];
-        $email = $data['email'];
+        $username = addslashes(ucfirst($data['username']));
+        $gender = addslashes($data['gender']);
+        $email = addslashes($data['email']);
         $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
 
         $cleanedUsername = iconv('UTF-8', 'ASCII//TRANSLIT', $username);
-        $cleanedUsername = strtolower(preg_replace('/[^a-z0-9]/', '', $cleanedUsername));
+        $cleanedUsername = strtolower($cleanedUsername);
         
         // Vytvoření URL adresy
         $url_adress = "u." . $cleanedUsername;

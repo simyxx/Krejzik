@@ -1,4 +1,5 @@
 <?php 
+session_start();
 
         include("classes/connect.php");
         include("classes/login.class.php");
@@ -8,8 +9,8 @@
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST')
             {   
-                $signup = new Signup();
-                $result = $signup->evaluate($_POST);
+                $login = new Login();
+                $result = $login->evaluate($_POST);
                 
                 if ($result != "")
                 {
@@ -20,7 +21,7 @@
                 }
                 else
                 {
-                    header("Location: login.php");
+                    header("Location: profile.php");
                     die();
                 }
                 
@@ -28,7 +29,7 @@
                 $email = $_POST['email'];
             }
 
-        ?>
+?>
 
 <!DOCTYPE html>
 <html lang="cs">
@@ -37,6 +38,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Krejzik | Přihlášení</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="img/silenyvlk.png">
 </head>
 <body>
     <header>
@@ -54,11 +56,11 @@
             <form action="" method="POST">
                 <div class="input-container">
                     <label for="email">Email:</label>
-                    <input type="text" id="email" name="email" placeholder="Email" required>
+                    <input value="<?php echo $email ?>" type="text" id="email" name="email" placeholder="Email">
                 </div>
                 <div class="input-container">
                     <label for="heslo">Heslo:</label>
-                    <input type="password" id="heslo" name="heslo" placeholder="Heslo" required>
+                    <input value="<?php echo $password ?>" type="password" id="heslo" name="password" placeholder="Heslo">
                 </div>
                 <button type="submit">Přihlásit se</button>
             </form>

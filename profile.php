@@ -1,3 +1,43 @@
+<?php 
+session_start();
+
+include("classes/connect.php");
+include("classes/login.class.php");
+include("classes/user.class.php");
+
+// Kontrola, zda je uživatel přihlášen
+if (isset($_SESSION['krejzik_userid']) && is_numeric($_SESSION['krejzik_userid']))
+{
+    $id = $_SESSION['krejzik_userid'];
+    $login = new Login();
+    $result = $login->checkLogin($id);
+
+    if ($result)
+    {
+        // Získání uživatelských dat
+        $user = new User();
+        $userData = $user->getData($id);
+        
+        if (!$userData)
+        {
+            header("Location: login.php");
+            die();
+        }
+
+    }
+    else
+    {
+        header("Location: login.php");
+        die();
+    }
+}
+else
+{
+    header("Location: login.php");
+    die();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +45,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Krejzik | Profil</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="img/silenyvlk.png">
 </head>
 
 <style>
@@ -45,7 +86,7 @@
             <img src="img/mountain.jpg" alt="cover img" class="cover-img">
             <img src="img/pfp.jpg" alt="pfp" class="cover-pfp">
             <br>
-                <div class="username">Marykunda</div>
+                <div class="username"><?php echo $userData['username'] ?></div>
             <br>
             <a class="text-grad menu_buttons" href="">Timeline</a>
             <a class="text-grad menu_buttons" href="">About</a>
