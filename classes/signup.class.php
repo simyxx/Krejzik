@@ -162,7 +162,7 @@ class Signup
     }
 
     private function isPasswordStrongEnough($password)
-{
+    {
     // Minimální délka hesla
     $minLength = 8;
 
@@ -176,5 +176,18 @@ class Signup
     $hasNumber = preg_match('/[0-9]/', $password);
 
     return strlen($password) >= $minLength && $hasUppercase && $hasLowercase && $hasNumber;
-}
+    }
+
+    public function getHashedPassword($email)
+    {
+    $DB = new Database();
+    $query = "SELECT password FROM users WHERE email = '$email'";
+    $result = $DB->read($query);
+
+    if ($result) {
+        return $result[0]['password'];
+    } else {
+        return null; // Uživatel s tímto emailem nebyl nalezen
+    }
+    }
 }

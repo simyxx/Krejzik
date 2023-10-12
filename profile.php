@@ -71,6 +71,9 @@ else
                   </form>
               </li>
               <li class="nav-item">
+                <a href="logout.php">Logout</a>
+              </li>
+              <li class="nav-item">
                 <a href="#" class="pfp-container">
                     <img src="img/pfp.jpg" class="pfp-image" alt="PFP" width="50">
                 </a>

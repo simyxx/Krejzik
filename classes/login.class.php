@@ -1,4 +1,5 @@
 <?php 
+include("signup.class.php");
 
 class Login 
 {
@@ -9,6 +10,8 @@ class Login
     {
         $email = addslashes($data['email']);
         $password = addslashes($data['password']);
+        $signup = new Signup();
+        $hashedPassword = $signup->getHashedPassword($email);
 
         $query = "SELECT * FROM users WHERE email = '$email' limit 1 ";
         
@@ -18,7 +21,7 @@ class Login
         if ($result)
         {
             $row = $result[0];
-            if ($password == $row['password'])
+            if (password_verify($password, $hashedPassword)) //password_hash($data['password'], PASSWORD_DEFAULT);
             {
                 // Začátek session 
                 $_SESSION['krejzik_userid'] = $row['userid'];
