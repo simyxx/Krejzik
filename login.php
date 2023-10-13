@@ -1,36 +1,3 @@
-<?php 
-session_start();
-
-        include("classes/connect.php");
-        include("classes/login.class.php");
- 
-        $email = "";
-        $password = "";
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST')
-            {   
-                $login = new Login();
-                $result = $login->evaluate($_POST);
-                
-                if ($result != "")
-                {
-                    echo "<div style='text-align:center;font-size:12px;color:white;background-color:grey;'>";
-                    echo "Nastala chyba: <br>";
-                    echo $result;
-                    echo "</div>";
-                }
-                else
-                {
-                    header("Location: profile.php");
-                    die();
-                }
-                
-                $password = $_POST['password'];
-                $email = $_POST['email'];
-            }
-
-?>
-
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -50,6 +17,38 @@ session_start();
           </nav>
           <div class="navbar-bottom"></div>
     </header>
+    <div class="error-message-container">
+    <?php 
+        session_start();
+
+        include("classes/connect.php");
+        include("classes/login.class.php");
+ 
+        $email = "";
+        $password = "";
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST')
+        {   
+            $login = new Login();
+            $result = $login->evaluate($_POST);
+            
+            if ($result != "")
+            {
+                echo "<div  style='text-align:center;font-size:18px;color:white;background-color:#F16529;'>";
+                echo $result;
+                echo "</div>";
+            }
+            else
+            {
+                header("Location: profile.php");
+                die();
+            }
+            
+            $password = $_POST['password'];
+            $email = $_POST['email'];
+        }
+    ?>
+    </div>
     <main>
         <div class="login-box">
             <h2>Přihlášení</h2>
