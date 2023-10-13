@@ -1,37 +1,3 @@
-<?php 
-
-        include("classes/connect.php");
-        include("classes/signup.class.php");
- 
-        $username = "";
-        $gender = "";
-        $email = "";
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST')
-            {   
-                $signup = new Signup();
-                $result = $signup->evaluate($_POST);
-                
-                if ($result != "")
-                {
-                    echo "<div style='text-align:center;font-size:12px;color:white;background-color:grey;'>";
-                    echo "Nastala chyba: <br>";
-                    echo $result;
-                    echo "</div>";
-                }
-                else
-                {
-                    header("Location: login.php");
-                    die();
-                }
-                
-                $username = $_POST['username'];
-                $gender = $_POST['gender'];
-                $email = $_POST['email'];
-            }
-
-        ?>
-
 <!DOCTYPE html>        
 <html lang="cs">
 <head>
@@ -51,8 +17,37 @@
           </nav>
           <div class="navbar-bottom"></div>
     </header>
-    <main>
-       
+    <div class="error-message-container">
+            <?php
+                include("classes/connect.php");
+                include("classes/signup.class.php");
+                $username = "";
+                $gender = "";
+                $email = "";
+                if ($_SERVER['REQUEST_METHOD'] == 'POST')
+                {   
+                    $signup = new Signup();
+                    $result = $signup->evaluate($_POST);
+
+                    if ($result != "")
+                    {
+                        echo "<div  style='text-align:center;font-size:18px;color:white;background-color:#F16529;'>";
+                        echo $result;
+                        echo "</div>";
+                    }
+                    else
+                    {
+                        header("Location: login.php");
+                        die();
+                    }
+
+                    $username = $_POST['username'];
+                    $gender = $_POST['gender'];
+                    $email = $_POST['email'];
+                }
+            ?>
+    </div>
+    <main>  
 
         <div class="login-box">
             <h2>Registrace</h2>
@@ -60,35 +55,36 @@
             <form method="post" action="">
                 
                 <div class="input-container">
-                    <label for="email">Uživatelské jméno:</label>
+                    <label for="email">Uživatelské jméno <span class="hvezda"> *</span></label>
                     <input value='<?php echo $username ?>' type="text" id="username" name="username" placeholder="Zadejte jméno" >
                 </div>
-
                 <div class="input-container">
-                    <label for="email">Email:</label>
+                    <label for="email">Email <span class="hvezda"> *</span></label>
                     <input value='<?php echo $email ?>' type="text" id="email" name="email" placeholder="Zadejte email" >
                 </div>
 
                 <div class="input-container">
-                    <label for="gender">Pohlaví:</label>
-                    <select name="gender" id="gender">
-                        <option>Muž</option>
-                        <option>Žena</option>
-                        <option>Jiné</option>
-                    </select>
+                    <label for="gender">Pohlaví <span class="hvezda"> *</span></label>
+                    <div class="select">
+                        <select name="gender" id="gender">
+                          <option value="1">Muž</option>
+                          <option value="2">Žena</option>
+                          <option value="3">Šílený vlk</option>
+                        </select>
+                     </div>
                 </div>
 
                 <div class="input-container">
-                    <label for="heslo">Heslo:</label>
+                    <label for="heslo">Heslo <span class="hvezda"> *</span></label>
                     <input type="password" id="password" name="password" placeholder="Zadejte heslo" >
                 </div>
 
                 <div class="input-container">
-                    <label for="heslo">Heslo znovu:</label>
+                    <label for="heslo">Heslo znovu <span class="hvezda"> *</span></label>
                     <input type="password" id="password-again" name="password-again" placeholder="Zadejte znovu heslo" >
                 </div>
 
-                <input type="submit" id="button" value="Registrovat" name="submit">
+                <input type="submit" class="button" value="Registrovat" name="submit">
                 
             </form>
 

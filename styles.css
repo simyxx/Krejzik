@@ -4,6 +4,10 @@
     box-sizing: border-box;
     font-family: Montserrat, sans-serif;
 }
+.error-message-container {
+    top: 82px;
+    position: relative;
+}
 main {
     display: flex;
     justify-content: center;
@@ -32,6 +36,18 @@ a{
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
+}
+.hvezda{
+    color: #F16529;
+}
+.error {
+    border-color: red;
+    margin-top: 500px;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
 }
 .logo {
     width: 70px; 
@@ -261,15 +277,73 @@ button{
     display: block;
     cursor: pointer;
     margin: auto;
-  }
-  button:hover{
-    background-position: right center;
-    color: #fff;
-    text-decoration: none;
-  }
-  button:active{
-    transform: scale(0.95);  
-  }
+}
+button:hover{
+  background-position: right center;
+  color: #fff;
+  text-decoration: none;
+}
+button:active{
+  transform: scale(0.95);  
+}
+.button{
+    border: 0px solid transparent;
+    background-image: linear-gradient(to right, #E44D26 0%, #F16529  51%, #E44D26  100%);
+    padding: 14px 45px;
+    font-size: 18px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;            
+    border-radius: 25px;
+    display: block;
+    cursor: pointer;
+    margin: auto;
+}
+.button:hover{
+  background-position: right center;
+  color: #fff;
+  text-decoration: none;
+}
+.button:active{
+  transform: scale(0.95);  
+}
+select {
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  -ms-appearance:none;
+  appearance:none;
+  outline:0;
+  box-shadow:none;
+  border:0!important;
+  background: #ffffff;
+  background-image: none;
+  flex: 1;
+  padding: 0 .6em;
+  color:#000000;
+  cursor:pointer;
+  font-size: 1em;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 10px;
+}
+.select {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 2.4em;
+    line-height: 3;
+    background: white;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 0.1px solid #ccc;
+}
+select::-ms-expand {
+  display: none;
+}
+.select select:focus {
+    border: 1px solid #F16529 !important;
+}
 textarea {
     resize: none;
     &.auto {
