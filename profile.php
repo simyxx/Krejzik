@@ -4,7 +4,6 @@ session_start();
 include("classes/connect.php");
 include("classes/login.class.php");
 include("classes/user.class.php");
-include("classes/post.class.php");
 
 // Kontrola, zda je uživatel přihlášen
 if (isset($_SESSION['krejzik_userid']) && is_numeric($_SESSION['krejzik_userid']))
@@ -38,39 +37,6 @@ else
     die();
 }
 
-// Přihlásil se, postování začne tady
-
-if($_SERVER['REQUEST_METHOD'] == "POST")
-{
-    $post = new Post();
-    $id = $_SESSION['krejzik_userid'];
-    $result = $post->create_post($id, $_POST);
-
-    if ($result == "")
-    {
-        header("Location: profile.php");
-        die();
-    }
-    else
-    {
-                    echo "<div style='text-align:center;font-size:12px;color:white;background-color:grey;'>";
-                    echo "Nastala chyba: <br>";
-                    echo $result;
-                    echo "</div>";
-    }
-}
-
-// Získání postů
-$post = new Post();
-$id = $_SESSION['krejzik_userid'];
-$posts = $post->get_posts($id);
-
-// Získání přátel
-$user = new User();
-$id = $_SESSION['krejzik_userid'];
-$friends = $user->getFriends($id);
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -79,6 +45,7 @@ $friends = $user->getFriends($id);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Krejzik | Profil</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/png" href="img/silenyvlk.png">
 </head>
 
@@ -100,12 +67,15 @@ $friends = $user->getFriends($id);
             </a>
             <ul class="nav-menu">
               <li class="nav-item">
-                  <form action="" class="search-bar">
-                      <input type="text" placeholder="Vyhledejte své známé!">
-                  </form>
+                <div class="box">
+                    <form action="" name="search">
+                        <input type="text" class="input" name="txt" onmouseout="this.value = ''; this.blur();">
+                    </form>
+                    <i class="search-icon fa fa-search" style="color: #F16529;"></i>
+                </div>
               </li>
               <li class="nav-item">
-                <a href="logout.php">Logout</a>
+                <a href="logout.php" class="text-grad">Logout</a>
               </li>
               <li class="nav-item">
                 <a href="#" class="pfp-container">
@@ -137,48 +107,95 @@ $friends = $user->getFriends($id);
                 <div class="friends-bar">
                     
                     Friends <br>
-                    <?php 
-                        
-                        if ($friends)
-                        {
-                            foreach($friends as $ROW)
-                            {
 
-                                include("user.php");
-                            }
-                        }        
-
-                    ?>
+                    <div class="friends">
+                        <img class="friends-img" src="img/user1.jpg">
+                        <br>
+                        <a class="text-grad friends-buttons" href="">First user</a>
+                    </div>
                     
+                    <div class="friends">
+                        <img class="friends-img" src="img/user2.jpg">
+                        <br>
+                        <a class="text-grad friends-buttons" href="">Second user</a>
+                    </div>
+
+                    <div class="friends">
+                        <img class="friends-img" src="img/user3.jpg">
+                        <br>
+                        <a class="text-grad friends-buttons" href="">Third user</a>
+                    </div>
+
+                    <div class="friends">
+                        <img class="friends-img" src="img/user4.jpg">
+                        <br>
+                        <a class="text-grad friends-buttons" href="">Fourth user</a>
+                    </div>
                 </div>
             </div>
 
             <div class="posts-area">
 
                 <div class="new-feed">
-                    <form action="" method="POST">
-                    <textarea name="post"placeholder="Co máte na mysli?"></textarea>
-                    <button type="submit">PŘIDAT</button>
-                </form>
+                    <textarea placeholder="Co máte na mysli?"></textarea>
+                    <button type="submit">přidat</button>
                 </div>
 
                 <div class="post-bar">
-                  
-                    <?php 
-                        
-                        if ($posts)
-                        {
-                            foreach($posts as $ROW)
-                            {
-                                $user = new User();
-                                $rowUser = $user->getUser($ROW['userid']);
-
-                                include("post.php");
-                            }
-                        }        
-
-                    ?>
-                    
+                    <div class="post">
+                        <div>
+                            <img class="post-img" src="img/user1.jpg" alt="pfp">
+                        </div>
+                        <div>
+                            <a class="text-grad post-owner" href="">First guy</a>
+                            Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.  
+                            Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.
+                            <br><br>
+                            <a href="">Like</a> . <a href="">Comment</a> . <span style="color:#999;">5. října 2023</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-bar">
+                    <div class="post">
+                        <div>
+                            <img class="post-img" src="img/user2.jpg" alt="pfp">
+                        </div>
+                        <div>
+                            <a class="text-grad post-owner" href="">Second guy</a>
+                            Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.  
+                            Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.
+                            <br><br>
+                            <a href="">Like</a> . <a href="">Comment</a> . <span style="color:#999;">5. října 2023</span>
+                        </div>
+                    </div>
+                </div>    
+                <div class="post-bar">
+                    <div class="post">
+                        <div>
+                            <img class="post-img" src="img/user3.jpg" alt="pfp">
+                        </div>
+                        <div>
+                            <a class="text-grad post-owner" href="">Third guy</a>
+                            Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.  
+                            Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.
+                            <br><br>
+                            <a href="">Like</a> . <a href="">Comment</a> . <span style="color:#999;">5. října 2023</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-bar">
+                    <div class="post">
+                        <div>
+                            <img class="post-img" src="img/user4.jpg" alt="pfp">
+                        </div>
+                        <div>
+                            <a class="text-grad post-owner" href="">Fourth guy</a>
+                            Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.  
+                            Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.
+                            <br><br>
+                            <a href="">Like</a> . <a href="">Comment</a> . <span style="color:#999;">5. října 2023</span>
+                        </div>
+                    </div>
                 </div>
 
             </div>
