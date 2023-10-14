@@ -56,11 +56,11 @@
             <form action="" method="POST">
                 <div class="input-container">
                     <label for="email">Email:</label>
-                    <input value="<?php echo $email ?>" type="text" id="email" name="email" placeholder="Email">
+                    <input value="<?php echo $email ?>" type="text" id="email" name="email" placeholder="Email" autocomplete="off">
                 </div>
                 <div class="input-container">
                     <label for="heslo">Heslo:</label>
-                    <input value="<?php echo $password ?>" type="password" id="heslo" name="password" placeholder="Heslo">
+                    <input value="<?php echo $password ?>" type="password" id="heslo" name="password" placeholder="Heslo" autocomplete="off">
                 </div>
                 <button type="submit">Přihlásit se</button>
             </form>

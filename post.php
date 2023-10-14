@@ -1,5 +1,5 @@
 <?php 
-    $image = "img/profilepic.jpg";
+    $image = "img/profilepic.png";
     $timestamp =  $ROW['date'];
 ?>
 

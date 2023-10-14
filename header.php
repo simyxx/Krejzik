@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <header>
         <nav class="navbar">
             <a href="index.html" class="nav-logo">
@@ -17,7 +18,7 @@
                 <a href="logout.php" class="text-grad">Logout</a>
               </li>
               <li class="nav-item">
-                <a href="#" class="pfp-container">
+                <a href="profile.php" class="pfp-container">
                     <img src="img/pfp.jpg" class="pfp-image" alt="PFP" width="50">
                 </a>
               </li>

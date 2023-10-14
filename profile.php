@@ -1,45 +1,51 @@
-<?php 
+<?php
 session_start();
 
 include("classes/connect.php");
 include("classes/login.class.php");
 include("classes/user.class.php");
+include("classes/post.class.php");
 
-// Kontrola, zda je uživatel přihlášen
-if (isset($_SESSION['krejzik_userid']) && is_numeric($_SESSION['krejzik_userid']))
-{
+// Je přihlášen?
+$login = new Login();
+$userDatas = $login->checkLogin($_SESSION['krejzik_userid']);
+
+// Získaní username
+$user = new User();
+$userData = $user->getData($_SESSION['krejzik_userid']);
+
+// Přihlásil se, postování začne tady
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $post = new Post();
     $id = $_SESSION['krejzik_userid'];
-    $login = new Login();
-    $result = $login->checkLogin($id);
+    $result = $post->create_post($id, $_POST);
 
-    if ($result)
-    {
-        // Získání uživatelských dat
-        $user = new User();
-        $userData = $user->getData($id);
-        
-        if (!$userData)
-        {
-            header("Location: login.php");
-            die();
-        }
-
-    }
-    else
-    {
-        header("Location: login.php");
+    if ($result == "") {
+        header("Location: profile.php");
         die();
+    } else {
+        echo "<div  style='text-align:center;font-size:18px;color:white;background-color:#F16529;'>";
+        echo "Nastala chyba: <br>";
+        echo $result;
+        echo "</div>";
     }
 }
-else
-{
-    header("Location: login.php");
-    die();
-}
+
+// Získání postů
+$post = new Post();
+$id = $_SESSION['krejzik_userid'];
+$posts = $post->get_posts($id);
+
+// Získání přátel
+$user = new User();
+$id = $_SESSION['krejzik_userid'];
+$friends = $user->getFriends($id);
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,168 +56,109 @@ else
 </head>
 
 <style>
-    #search-box{
+    #search-box {
         background-image: url(img/search.png);
         background-repeat: no-repeat;
         background-position: right;
-        width: 400px; 
+        width: 400px;
     }
-
 </style>
+
 <body>
-    <header>
-        <nav class="navbar">
-            <a href="index.html" class="nav-logo">
-              <img src="img/silenyvlk.png" alt="Logo" class="logo">
-              <img src="img/krejzik.png" alt="Logo" class="logotext">
-            </a>
-            <ul class="nav-menu">
-              <li class="nav-item">
-                <div class="box">
-                    <form action="" name="search">
-                        <input type="text" class="input" name="txt" onmouseout="this.value = ''; this.blur();">
-                    </form>
-                    <i class="search-icon fa fa-search" style="color: #F16529;"></i>
-                </div>
-              </li>
-              <li class="nav-item">
-                <a href="logout.php" class="text-grad">Logout</a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="pfp-container">
-                    <img src="img/pfp.jpg" class="pfp-image" alt="PFP" width="50">
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div class="navbar-bottom"></div>
-    </header>
+    <?php
+    include("header.php");
+    ?>
 
     <main>
-    <div class="content">
-        <div class="cover">
-            <img src="img/mountain.jpg" alt="cover img" class="cover-img">
-            <img src="img/pfp.jpg" alt="pfp" class="cover-pfp">
-            <br>
-                <div class="username"><?php echo $userData['username'] ?></div>
-            <br>
-            <a class="text-grad menu_buttons" href="">Timeline</a>
-            <a class="text-grad menu_buttons" href="">About</a>
-            <a class="text-grad menu_buttons" href="">Friends</a>
-            <a class="text-grad menu_buttons" href="">Photos</a>
-            <a class="text-grad menu_buttons" href="">Settings</a>
-        </div>
+        <div class="content">
+            <div class="cover">
+                <img src="img/mountain.jpg" alt="cover img" class="cover-img">
+                <span>
+                    <?php
 
-        <div class="below-cover">
-            <div class="friends-area">
-                <div class="friends-bar">
-                    
-                    Friends <br>
+                    $image = "img/profilepic.jpg"; 
+                    if (file_exists($userData['profile_image']))
+                    {
+                        $image = $userData['profile_image'];
+                    }
 
-                    <div class="friends">
-                        <img class="friends-img" src="img/user1.jpg">
-                        <br>
-                        <a class="text-grad friends-buttons" href="">First user</a>
+                    ?>
+                    <img src="<?php echo $image ?>" alt="pfp" class="cover-pfp"><br>
+                    <a style="font-size:11px;" href="change-pfp.php">změnit obrázek</a> |            
+                    <a style="font-size:11px;" href="change-pfp.php">změnit náhled</a>      
+                </span>
+                <br>
+                <div class="username">
+                    <?php echo $userData['username']; ?>
+                </div>
+                <br>
+                <a class="text-grad menu_buttons" href="index.php">Timeline</a>
+                <a class="text-grad menu_buttons" href="">About</a>
+                <a class="text-grad menu_buttons" href="">Friends</a>
+                <a class="text-grad menu_buttons" href="">Photos</a>
+                <a class="text-grad menu_buttons" href="">Settings</a>
+            </div>
+
+            <div class="below-cover">
+                <div class="friends-area">
+                    <div class="friends-bar">
+
+                        Friends <br>
+                        <?php
+
+                        if ($friends) {
+                            foreach ($friends as $ROW) {
+
+                                include("user.php");
+                            }
+                        }
+
+                        ?>
+
                     </div>
-                    
-                    <div class="friends">
-                        <img class="friends-img" src="img/user2.jpg">
-                        <br>
-                        <a class="text-grad friends-buttons" href="">Second user</a>
+                </div>
+
+                <div class="posts-area">
+
+                    <div class="new-feed">
+                        <form action="" method="POST">
+                            <textarea name="post" placeholder="Co máte na mysli?"></textarea>
+                            <button type="submit">PŘIDAT</button>
+                        </form>
                     </div>
 
-                    <div class="friends">
-                        <img class="friends-img" src="img/user3.jpg">
-                        <br>
-                        <a class="text-grad friends-buttons" href="">Third user</a>
+                    <div class="post-bar">
+
+                        <?php
+
+                        if ($posts) {
+                            foreach ($posts as $ROW) {
+                                $user = new User();
+                                $rowUser = $user->getUser($ROW['userid']);
+
+                                include("post.php");
+                            }
+                        }
+
+                        ?>
+
                     </div>
 
-                    <div class="friends">
-                        <img class="friends-img" src="img/user4.jpg">
-                        <br>
-                        <a class="text-grad friends-buttons" href="">Fourth user</a>
-                    </div>
                 </div>
             </div>
 
-            <div class="posts-area">
-
-                <div class="new-feed">
-                    <textarea placeholder="Co máte na mysli?"></textarea>
-                    <button type="submit">přidat</button>
-                </div>
-
-                <div class="post-bar">
-                    <div class="post">
-                        <div>
-                            <img class="post-img" src="img/user1.jpg" alt="pfp">
-                        </div>
-                        <div>
-                            <a class="text-grad post-owner" href="">First guy</a>
-                            Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.  
-                            Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.
-                            <br><br>
-                            <a href="">Like</a> . <a href="">Comment</a> . <span style="color:#999;">5. října 2023</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="post-bar">
-                    <div class="post">
-                        <div>
-                            <img class="post-img" src="img/user2.jpg" alt="pfp">
-                        </div>
-                        <div>
-                            <a class="text-grad post-owner" href="">Second guy</a>
-                            Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.  
-                            Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.
-                            <br><br>
-                            <a href="">Like</a> . <a href="">Comment</a> . <span style="color:#999;">5. října 2023</span>
-                        </div>
-                    </div>
-                </div>    
-                <div class="post-bar">
-                    <div class="post">
-                        <div>
-                            <img class="post-img" src="img/user3.jpg" alt="pfp">
-                        </div>
-                        <div>
-                            <a class="text-grad post-owner" href="">Third guy</a>
-                            Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.  
-                            Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.
-                            <br><br>
-                            <a href="">Like</a> . <a href="">Comment</a> . <span style="color:#999;">5. října 2023</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="post-bar">
-                    <div class="post">
-                        <div>
-                            <img class="post-img" src="img/user4.jpg" alt="pfp">
-                        </div>
-                        <div>
-                            <a class="text-grad post-owner" href="">Fourth guy</a>
-                            Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.  
-                            Lorem Ipsum is simply dummy text of the printing and typesettings industry.  Lorem Ipsum is simply dummy text of the printing and typesettings industry.
-                            <br><br>
-                            <a href="">Like</a> . <a href="">Comment</a> . <span style="color:#999;">5. října 2023</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
         </div>
-
-    </div>
     </main>
     <script>
         document.querySelectorAll('textarea').forEach(el => {
-    el.style.height = el.setAttribute('style', 'height: ' + el.scrollHeight + 'px');
-    el.classList.add('auto');
-    el.addEventListener('input', e => {
-        el.style.height = 'auto';
-        el.style.height = (el.scrollHeight) + 'px';
-    });
-});
+            el.style.height = el.setAttribute('style', 'height: ' + el.scrollHeight + 'px');
+            el.classList.add('auto');
+            el.addEventListener('input', e => {
+                el.style.height = 'auto';
+                el.style.height = (el.scrollHeight) + 'px';
+            });
+        });
     </script>
 </body>
+
 </html>

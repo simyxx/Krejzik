@@ -57,11 +57,11 @@
                 
                 <div class="input-container">
                     <label for="email">Uživatelské jméno <span class="hvezda"> *</span></label>
-                    <input value='<?php echo $username ?>' type="text" id="username" name="username" placeholder="Zadejte jméno" >
+                    <input value='<?php echo $username ?>' type="text" id="username" name="username" placeholder="Zadejte jméno" autocomplete="off">
                 </div>
                 <div class="input-container">
                     <label for="email">Email <span class="hvezda"> *</span></label>
-                    <input value='<?php echo $email ?>' type="text" id="email" name="email" placeholder="Zadejte email" >
+                    <input value='<?php echo $email ?>' type="text" id="email" name="email" placeholder="Zadejte email" autocomplete="off">
                 </div>
 
                 <div class="input-container">
@@ -77,12 +77,12 @@
 
                 <div class="input-container">
                     <label for="heslo">Heslo <span class="hvezda"> *</span></label>
-                    <input type="password" id="password" name="password" placeholder="Zadejte heslo" >
+                    <input type="password" id="password" name="password" placeholder="Zadejte heslo" autocomplete="off">
                 </div>
 
                 <div class="input-container">
                     <label for="heslo">Heslo znovu <span class="hvezda"> *</span></label>
-                    <input type="password" id="password-again" name="password-again" placeholder="Zadejte znovu heslo" >
+                    <input type="password" id="password-again" name="password-again" placeholder="Zadejte znovu heslo" autocomplete="off">
                 </div>
 
                 <input type="submit" class="button" value="Registrovat" name="submit">

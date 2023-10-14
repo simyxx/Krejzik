@@ -47,8 +47,8 @@ class Login
 
         if ($result)
         {
-
-            return true;
+            $userData = $result[0];
+            return $userData;
         }
         return false;
     }

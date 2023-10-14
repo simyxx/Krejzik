@@ -42,21 +42,21 @@ class Post
     private function create_postid()
     {
         $DB = new Database();
-    
+
         do {
             $length = rand(4, 19);
             $number = "";
-            
+
             for ($i = 0; $i < $length; $i++) {
                 $newRand = rand(0, 9);
                 $number .= $newRand;
             }
-    
+
             $query = "SELECT postid FROM posts WHERE postid = '$number'";
             $result = $DB->read($query);
-    
+
         } while (!empty($result));
-    
+
         return $number;
     }
 }

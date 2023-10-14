@@ -1,0 +1,3 @@
+upravy:
+
+kdyz se refreshuje tak tam zustane error u registrace;
