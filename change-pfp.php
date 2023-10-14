@@ -24,6 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if ($_FILES['file']['type'] == "image/jpeg" || $_FILES['file']['type'] == "image/png" || $_FILES['file']['type'] == "image/gif") {
             $allowedSize = (1024 * 1024) * 5;
             if ($_FILES['file']['size'] < $allowedSize) {
+                $image = new Image();
+
+                // Tvoření složky
+                $folder = "uploads/" . $userData['userid'] . "/";
 
                 // Tvoření bezpečného názvu souboru
                 $userId = $userData['userid'];
@@ -31,15 +35,43 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $timestamp = time();
                 $fileExtension = pathinfo($uploadedFile, PATHINFO_EXTENSION);
                 $newFilename = $userId . '-' . $timestamp . '.' . $fileExtension;
-                $filename = "uploads/" . $newFilename;
+
+                // Zajištění, že název souboru bude jedinečný
+                $i = 1;
+                while (file_exists($folder . $newFilename)) {
+                    $newFilename = $userId . '-' . $timestamp . '_' . $i . '.' . $fileExtension;
+                    $i++;
+                }
+
+                // Tvorba složky
+                if (!file_exists($folder)) {
+                    mkdir($folder, 0777, true);
+                }
+                $filename = $folder . $newFilename;
                 move_uploaded_file($_FILES['file']['tmp_name'], $filename);
+                $change = "profile";
+                // Zjištění, jestli je v url $_GET cover nebo profile
+                if (isset($_GET['change'])) {
+                    $change = $_GET['change'];
+                }
 
                 $image = new Image();
-                $image->cropImage($filename, $filename, 800, 800);
+
+                if ($change == "cover") {
+                    $image->cropImage($filename, $filename, 1366, 488);
+                } else {
+                    $image->cropImage($filename, $filename, 800, 800);
+                }
+
 
                 if (file_exists($filename)) {
                     $userId = $userData['userid'];
-                    $query = "UPDATE users SET profile_image = '$filename' WHERE userid = '$userId' limit 1";
+
+                    if ($change == "cover") {
+                        $query = "UPDATE users SET cover_image = '$filename' WHERE userid = '$userId' limit 1";
+                    } else {
+                        $query = "UPDATE users SET profile_image = '$filename' WHERE userid = '$userId' limit 1";
+                    }
                     $DB = new Database();
                     $DB->save($query);
                     header("Location: profile.php");

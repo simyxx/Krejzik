@@ -72,20 +72,27 @@ $friends = $user->getFriends($id);
     <main>
         <div class="content">
             <div class="cover">
-                <img src="img/mountain.jpg" alt="cover img" class="cover-img">
+                <?php
+
+                $image = "img/placeholder.png";
+                if (file_exists($userData['cover_image'])) {
+                    $image = $userData['cover_image'];
+                }
+
+                ?>
+                <img src="<?php echo $image ?>" alt="cover img" class="cover-img">
                 <span>
                     <?php
 
-                    $image = "img/profilepic.jpg"; 
-                    if (file_exists($userData['profile_image']))
-                    {
+                    $image = "img/profilepic.png";
+                    if (file_exists($userData['profile_image'])) {
                         $image = $userData['profile_image'];
                     }
 
                     ?>
                     <img src="<?php echo $image ?>" alt="pfp" class="cover-pfp"><br>
-                    <a style="font-size:11px;" href="change-pfp.php">změnit obrázek</a> |            
-                    <a style="font-size:11px;" href="change-pfp.php">změnit náhled</a>      
+                    <a style="font-size:11px;" href="change-pfp.php?change=profile">změnit obrázek</a> |
+                    <a style="font-size:11px;" href="change-pfp.php?change=cover">změnit náhled</a>
                 </span>
                 <br>
                 <div class="username">
