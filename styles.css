@@ -229,6 +229,7 @@ a{
     font-size: 13px;
     display: flex;
     margin-bottom: 20px;
+    width: 540px;
 }
 .post-owner {
     font-weight: bold;
@@ -244,6 +245,7 @@ a{
 .posts-area {
     min-height: 400px;
     flex:2.5;
+    width: 540px;
 }
 .friends-img{
     width: 75px;
@@ -254,6 +256,7 @@ a{
 .friends-bar{
     background-color: white;
     min-height: 400px;
+    width: 250px;
     margin-top: 20px;
     padding: 8px;
     border-radius: 30px;
@@ -283,6 +286,11 @@ a{
     margin-top: -250px;
     border-radius: 50%;
     border: solid 2px white;
+}
+
+.cover-pfp:hover {
+    border: 2px solid #F16529;
+    opacity: 0.9;
 }
 .below-cover{
     display: flex;
@@ -427,5 +435,8 @@ textarea {
     }
     .logo{
        margin-right: 10px;
+    }
+    .friends-area{
+        display: none;
     }
 }

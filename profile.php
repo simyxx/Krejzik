@@ -80,7 +80,9 @@ $friends = $user->getFriends($id);
                 }
 
                 ?>
-                <img src="<?php echo $image ?>" alt="cover img" class="cover-img">
+                <a href="change-pfp.php?change=cover">
+                    <img src="<?php echo $image ?>" alt="cover img" class="cover-img">
+                </a>
                 <span>
                     <?php
 
@@ -90,9 +92,9 @@ $friends = $user->getFriends($id);
                     }
 
                     ?>
-                    <img src="<?php echo $image ?>" alt="pfp" class="cover-pfp"><br>
-                    <a style="font-size:11px;" href="change-pfp.php?change=profile">změnit obrázek</a> |
-                    <a style="font-size:11px;" href="change-pfp.php?change=cover">změnit náhled</a>
+                    <a href="change-pfp.php?change=profile" >
+                        <img src="<?php echo $image ?>" alt="pfp" class="cover-pfp"><br>
+                    </a>
                 </span>
                 <br>
                 <div class="username">
@@ -110,7 +112,7 @@ $friends = $user->getFriends($id);
                 <div class="friends-area">
                     <div class="friends-bar">
 
-                        Friends <br>
+                        <p style="text-align:center;font-size: 18px;">Friends</p>
                         <?php
 
                         if ($friends) {
@@ -129,8 +131,8 @@ $friends = $user->getFriends($id);
 
                     <div class="new-feed">
                         <form action="" method="POST">
-                            <textarea name="post" placeholder="Co máte na mysli?"></textarea>
-                            <button type="submit">PŘIDAT</button>
+                            <textarea name="post" placeholder="Co máte na mysli?" style="word-wrap: break-word;"></textarea>
+                            <button style="margin-top:20px;" type="submit">PŘIDAT</button>
                         </form>
                     </div>
 
