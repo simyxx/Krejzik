@@ -229,7 +229,7 @@ a{
     font-size: 13px;
     display: flex;
     margin-bottom: 20px;
-    width: 540px;
+    width: 250px;
 }
 .post-owner {
     font-weight: bold;
@@ -245,7 +245,7 @@ a{
 .posts-area {
     min-height: 400px;
     flex:2.5;
-    width: 540px;
+    width: 250px;
 }
 .friends-img{
     width: 75px;
