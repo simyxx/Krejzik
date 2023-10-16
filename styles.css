@@ -253,6 +253,9 @@ a{
     margin: 8px;
     border-radius: 50%;
 }
+.friends-img:hover{
+    border: 1px solid #F16529;
+}
 .friends-bar{
     background-color: white;
     min-height: 400px;
@@ -262,11 +265,11 @@ a{
     border-radius: 30px;
 }
 .friends {
-    clear: both;
-    font-weight: bold;
+    display: flex;
+    margin-bottom: 20px;
 }
 .friends-buttons {
-    font-size: 15px;
+    font-size: 16px;
 }
 .content {
     width: 800px;

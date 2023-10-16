@@ -112,7 +112,7 @@ $friends = $user->getFriends($id);
                 <div class="friends-area">
                     <div class="friends-bar">
 
-                        <p style="text-align:center;font-size: 18px;">Friends</p>
+                        <p style="text-align:center;font-size: 18px;margin-bottom:20px;">Friends</p>
                         <?php
 
                         if ($friends) {
