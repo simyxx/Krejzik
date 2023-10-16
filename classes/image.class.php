@@ -125,4 +125,113 @@ class Image
         }
         imagedestroy($newCroppedImage);
     }
+
+
+
+    
+    public function resizeImage($originalFileName, $resizedFileName, $maxWidth, $maxHeight)
+    {
+        $imageType = 1;
+        if (file_exists($originalFileName)) {
+            if ($_FILES['file']['type'] == "image/jpeg") {
+
+                $originalImage = imagecreatefromjpeg($originalFileName);
+                $originalWidth = imagesx($originalImage);
+                $originalHeight = imagesy($originalImage);
+                if ($originalHeight > $originalWidth) {
+                    // Nastav šířka = max. šířka
+                    $ratio = $maxWidth / $originalWidth;
+                    $newWidth = $maxWidth;
+                    $newHeight = $originalHeight * $ratio;
+                } else {
+                    // Nastav šířka = max. šířka
+                    $ratio = $maxHeight / $originalHeight;
+                    $newHeight = $maxHeight;
+                    $newWidth = $originalWidth * $ratio;
+                }
+
+            } else if ($_FILES['file']['type'] == "image/png") {
+                $imageType = 2;
+                $originalImage = imagecreatefrompng($originalFileName);
+                $originalWidth = imagesx($originalImage);
+                $originalHeight = imagesy($originalImage);
+                if ($originalHeight > $originalWidth) {
+                    // Nastav šířka = max. šířka
+                    $ratio = $maxWidth / $originalWidth;
+                    $newWidth = $maxWidth;
+                    $newHeight = $originalHeight * $ratio;
+                } else {
+                    // Nastav šířka = max. šířka
+                    $ratio = $maxHeight / $originalHeight;
+                    $newHeight = $maxHeight;
+                    $newWidth = $originalWidth * $ratio;
+                }
+            } else if ($_FILES['file']['type'] == "image/gif") {
+                $imageType = 3;
+                $originalImage = imagecreatefromgif($originalFileName);
+                $originalWidth = imagesx($originalImage);
+                $originalHeight = imagesy($originalImage);
+                if ($originalHeight > $originalWidth) {
+                    // Nastav šířka = max. šířka
+                    $ratio = $maxWidth / $originalWidth;
+                    $newWidth = $maxWidth;
+                    $newHeight = $originalHeight * $ratio;
+                } else {
+                    // Nastav šířka = max. šířka
+                    $ratio = $maxHeight / $originalHeight;
+                    $newHeight = $maxHeight;
+                    $newWidth = $originalWidth * $ratio;
+                }
+            }
+        }
+        // Změna pokud je max width a max height rozdílné
+        if ($maxWidth != $maxHeight) {
+            if ($maxHeight > $maxWidth) {
+                if ($maxHeight > $newHeight) {
+                    $adjustment = ($maxHeight / $newHeight);
+                } else {
+                    $adjustment = ($newHeight / $maxHeight);
+                }
+
+                $newWidth *= $adjustment;
+                $newHeight *= $adjustment;
+            } else {
+                if ($maxWidth > $newWidth) {
+                    $adjustment = ($maxWidth / $newWidth);
+                } else {
+                    $adjustment = ($newWidth / $maxWidth);
+                }
+
+                $newWidth *= $adjustment;
+                $newHeight *= $adjustment;
+            }
+        }
+        $newImage = imagecreatetruecolor($newWidth, $newHeight);
+        imagecopyresampled($newImage, $originalImage, 0, 0, 0, 0, $newWidth, $newHeight, $originalWidth, $originalHeight);
+        imagedestroy($originalImage);
+
+        switch ($imageType) {
+            case 1:
+                imagejpeg($newImage, $resizedFileName, 90);
+                break;
+            case 2:
+                imagepng($newImage, $resizedFileName, 9);
+                break;
+            case 3:
+                imagegif($newImage, $resizedFileName);
+                break;
+        }
+        imagedestroy($newImage);
+    }
+
+    public function getThumbnailCover($filename)
+    {
+        $thumbnail = $filename . "_cover_thumbnail.jpg";
+        $this->cropImage($filename, $thumbnail, 1366, 488);
+        if (file_exists($thumbnail)) {
+            return $thumbnail;
+        } else {
+            return $filename;
+        }
+    }
 }

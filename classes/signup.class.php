@@ -31,6 +31,10 @@ class Signup
                     {
                         $this->error = $this->error . "Uživatelské jméno nemůže obsahovat mezeru!<br>";
                     }
+                    if (strlen($value) > 16)
+                    {
+                        $this->error = $this->error . "Uživatelské jméno musí mít maximálně 16 znaků!<br>";
+                    }
                 }
             }
 
@@ -106,6 +110,8 @@ class Signup
         $gender = addslashes($data['gender']);
         $email = addslashes($data['email']);
         $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
+        $profileImg = "img/profilepic.png";
+        $coverImg = "img/placeholder.png";
 
         $cleanedUsername = iconv('UTF-8', 'ASCII//TRANSLIT', $username);
         $cleanedUsername = strtolower($cleanedUsername);
@@ -114,8 +120,8 @@ class Signup
         $url_adress = "u." . $cleanedUsername;
         $userid = $this->create_userid();
 
-        $query = "INSERT INTO users(userid, username, gender, email, password, url_adress) 
-        VALUES ('$userid', '$username', '$gender', '$email', '$hashedPassword', '$url_adress')";
+        $query = "INSERT INTO users(userid, username, gender, email, password, url_adress, profile_image, cover_image) 
+        VALUES ('$userid', '$username', '$gender', '$email', '$hashedPassword', '$url_adress', '$profileImg', '$coverImg')";
         
         $DB = new Database();
         $DB->save($query);

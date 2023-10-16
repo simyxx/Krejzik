@@ -19,7 +19,7 @@ $userData = $user->getData($_SESSION['krejzik_userid']);
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $post = new Post();
     $id = $_SESSION['krejzik_userid'];
-    $result = $post->create_post($id, $_POST);
+    $result = $post->create_post($id, $_POST, $_FILES);
 
     if ($result == "") {
         header("Location: profile.php");
@@ -130,8 +130,9 @@ $friends = $user->getFriends($id);
                 <div class="posts-area">
 
                     <div class="new-feed">
-                        <form action="" method="POST">
+                        <form action="" method="POST" enctype="multipart/form-data">
                             <textarea name="post" placeholder="Co máte na mysli?" style="word-wrap: break-word;"></textarea>
+                            <!--.<input type="file" name="post_file">..-->
                             <button style="margin-top:20px;" type="submit">PŘIDAT</button>
                         </form>
                     </div>

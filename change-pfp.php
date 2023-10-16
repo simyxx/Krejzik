@@ -17,10 +17,7 @@ $userData = $user->getData($_SESSION['krejzik_userid']);
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if (isset($_FILES['file']['name']) && $_FILES['file']['name'] != "") {
-        if ($userData['profile_image'] && file_exists($userData['profile_image'])) {
-            // Smazat stávající profilovou fotografii
-            unlink($userData['profile_image']);
-        }
+        
         if ($_FILES['file']['type'] == "image/jpeg" || $_FILES['file']['type'] == "image/png" || $_FILES['file']['type'] == "image/gif") {
             $allowedSize = (1024 * 1024) * 5;
             if ($_FILES['file']['size'] < $allowedSize) {
@@ -58,8 +55,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $image = new Image();
 
                 if ($change == "cover") {
+                    if (file_exists($userData['cover_image'])) {
+                        unlink($userData['cover_image']);
+                    }
                     $image->cropImage($filename, $filename, 1366, 488);
                 } else {
+                    if (file_exists($userData['profile_image'])) {
+                        unlink($userData['profile_image']);
+                    }
                     $image->cropImage($filename, $filename, 800, 800);
                 }
 
@@ -120,10 +123,25 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                 <div id="posts-area">
 
-                    <div class="new-feed">
+                    <div class="new-feed change-pfp-part">
                         <form action="" method="POST" enctype="multipart/form-data">
-                            <input type="file" name="file">
+                            <input type="file" name="file" class="change-pfp-part">
                             <button type="submit" name="submit">Změnit</button>
+                            <br> <br>
+                            <div>
+                                <?php
+
+
+                                // Zjištění, jestli je v url $_GET cover nebo profile
+                                if (isset($_GET['change']) && $_GET['change'] == "cover") {
+                                    $change = "cover";
+                                    echo "<img src='$userData[cover_image]' style='max-width: 500px;'>";
+                                } else {
+                                    echo "<img src='$userData[profile_image]' style='max-width: 500px;'>";
+                                }
+
+                                ?>
+                                </>
                         </form>
                     </div>
 
