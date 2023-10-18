@@ -7,8 +7,11 @@ include("classes/user.class.php");
 include("classes/post.class.php");
 
 // Je přihlášen?
-$login = new Login();
-$userDatas = $login->checkLogin($_SESSION['krejzik_userid']);
+if (!isset($_SESSION['krejzik_userid'])) {
+    // Pokud uživatel není přihlášen, provedete přesměrování na jinou stránku
+    header("Location: login.php"); 
+    exit; 
+}
 
 // Získaní username
 $user = new User();
@@ -132,7 +135,7 @@ $friends = $user->getFriends($id);
                     <div class="new-feed">
                         <form action="" method="POST" enctype="multipart/form-data">
                             <textarea name="post" placeholder="Co máte na mysli?" style="word-wrap: break-word;"></textarea>
-                            <!--.<input type="file" name="post_file">..-->
+                            <input type="file" name="post_file">
                             <button style="margin-top:20px;" type="submit">PŘIDAT</button>
                         </form>
                     </div>

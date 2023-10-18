@@ -55,12 +55,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $image = new Image();
 
                 if ($change == "cover") {
-                    if (file_exists($userData['cover_image'])) {
+                    if (file_exists($userData['cover_image'] && $userData['cover_image'] != "img/placeholder.png")) {
                         unlink($userData['cover_image']);
                     }
                     $image->cropImage($filename, $filename, 1366, 488);
                 } else {
-                    if (file_exists($userData['profile_image'])) {
+                    if (file_exists($userData['profile_image'] && $userData['profile_image'] != "img/profilepic.png")) {
                         unlink($userData['profile_image']);
                     }
                     $image->cropImage($filename, $filename, 800, 800);

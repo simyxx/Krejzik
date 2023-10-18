@@ -1,6 +1,6 @@
 <?php 
 
-$profilePic = "/img/search.png";
+$profilePic = "img/profilepic.png";
 if (isset($userData))
 {
   $profilePic = $userData['profile_image'];
@@ -11,7 +11,7 @@ if (isset($userData))
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <header>
         <nav class="navbar">
-            <a href="index.html" class="nav-logo">
+            <a href="index.php" class="nav-logo">
               <img src="img/silenyvlk.png" alt="Logo" class="logo">
               <img src="img/krejzik.png" alt="Logo" class="logotext">
             </a>

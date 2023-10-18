@@ -6,8 +6,13 @@ include("classes/login.class.php");
 include("classes/user.class.php");
 include("classes/post.class.php");
 
-$login = new Login();
-$userData = $login->checkLogin($_SESSION['krejzik_userid']);
+
+// Je přihlášen?
+if (!isset($_SESSION['krejzik_userid'])) {
+    // Pokud uživatel není přihlášen, provedete přesměrování na jinou stránku
+    header("Location: login.php"); 
+    exit; 
+}
 
 // Získaní username
 $user = new User();

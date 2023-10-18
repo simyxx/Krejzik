@@ -7,20 +7,19 @@ class Post
     public function create_post($userid, $data, $files)
     {
 
-        if (!empty($data['post']) || !empty($files['file']['name'])) {
+        if (!empty($data['post'])){
             
-            $postImg = "sad";
+            $postImg = "";
             $hasImg = 0;
             
-            if (!empty($files['file']['name']))
-            {
+            if (isset($files['file']['name']) && $files['file']['name'] != "") {
+                // Zpracování obrázku
                 $folder = "uploads/" . $userid . "/";
-                if (!file_exists($folder))
-                {
+                if (!file_exists($folder)) {
                     mkdir($folder, 0777, true);
                 }
-
-                // Tvoření názvu pro post
+            
+                // Zajištění, že název souboru bude jedinečný
                 $uploadedFile = $_FILES['file']['name'];
                 $timestamp = time();
                 $fileExtension = pathinfo($uploadedFile, PATHINFO_EXTENSION);
@@ -29,8 +28,10 @@ class Post
                 move_uploaded_file($_FILES['file']['tmp_name'], $postImg);
                 $image = new Image();
                 $image->resizeImage($postImg, $postImg, 1500, 1500);
-
+            
                 $hasImg = 1;
+            } else {
+                $postImg = "nefunguje"; // Pokud se nepodařilo nahrát obrázek
             }
 
             $post = addslashes($data['post']);

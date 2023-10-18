@@ -11,7 +11,7 @@
 <body>
     <header>
         <nav class="navbar">
-            <a href="index.html" class="nav-logo">
+            <a href="index.php" class="nav-logo">
               <img src="img/silenyvlk.png" alt="Logo" class="logo">
               <img src="img/krejzik.png" alt="Logo" class="logotext">
             </a>
