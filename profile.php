@@ -5,6 +5,7 @@ include("classes/connect.php");
 include("classes/login.class.php");
 include("classes/user.class.php");
 include("classes/post.class.php");
+include("classes/image.class.php");
 
 // Je přihlášen?
 if (!isset($_SESSION['krejzik_userid'])) {
@@ -22,16 +23,51 @@ $userData = $user->getData($_SESSION['krejzik_userid']);
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $post = new Post();
     $id = $_SESSION['krejzik_userid'];
-    $result = $post->create_post($id, $_POST, $_FILES);
 
-    if ($result == "") {
-        header("Location: profile.php");
-        die();
+    // Zkontrolovat, zda byl nahrán soubor
+    if (isset($_FILES['file']) && $_FILES['file']['name'] != "") {
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+        $maxFileSize = 5 * 1024 * 1024; // 5 MB
+
+        // Získání informací o nahrávaném souboru
+        $uploadedFile = $_FILES['file'];
+        $fileName = $uploadedFile['name'];
+        $fileSize = $uploadedFile['size'];
+        $fileTmpName = $uploadedFile['tmp_name'];
+        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+        // Zkontrolovat povolené typy souborů a maximální velikost
+        if (in_array($fileExtension, $allowedExtensions) && $fileSize <= $maxFileSize) {
+            $result = $post->create_post($id, $_POST, $_FILES);
+
+            if ($result == "") {
+                // Přesměrování na profil, pokud vše proběhlo v pořádku
+                header("Location: profile.php");
+                die();
+            } else {
+                echo "<div  style='text-align:center;font-size:18px;color:white;background-color:#F16529;'>";
+                echo "Nastala chyba: <br>";
+                echo $result;
+                echo "</div>";
+            }
+        } else {
+            echo "<div  style='text-align:center;font-size:18px;color:white;background-color:#F16529;'>";
+            echo "Špatný typ souboru (povolené: jpg, jpeg, png, gif) nebo překročená maximální povolená velikost (5 MB).";
+            echo "</div>";
+        }
     } else {
-        echo "<div  style='text-align:center;font-size:18px;color:white;background-color:#F16529;'>";
-        echo "Nastala chyba: <br>";
-        echo $result;
-        echo "</div>";
+        // Pokud uživatel neposkytl soubor, můžete zde provést jinou akci nebo zpracování textového příspěvku
+        $result = $post->create_post($id, $_POST, $_FILES);
+
+        if ($result == "") {
+            header("Location: profile.php");
+            die();
+        } else {
+            echo "<div  style='text-align:center;font-size:18px;color:white;background-color:#F16529;'>";
+            echo "Nastala chyba: <br>";
+            echo $result;
+            echo "</div>";
+        }
     }
 }
 
@@ -45,6 +81,7 @@ $user = new User();
 $id = $_SESSION['krejzik_userid'];
 $friends = $user->getFriends($id);
 
+$imageClass = new Image();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,16 +94,6 @@ $friends = $user->getFriends($id);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/png" href="img/silenyvlk.png">
 </head>
-
-<style>
-    #search-box {
-        background-image: url(img/search.png);
-        background-repeat: no-repeat;
-        background-position: right;
-        width: 400px;
-    }
-</style>
-
 <body>
     <?php
     include("header.php");
@@ -133,29 +160,30 @@ $friends = $user->getFriends($id);
                 <div class="posts-area">
 
                     <div class="new-feed">
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        <form action="#" method="POST" enctype="multipart/form-data">
                             <textarea name="post" placeholder="Co máte na mysli?" style="word-wrap: break-word;"></textarea>
-                            <input type="file" name="post_file">
+                            <input type="file" name="file">
                             <button style="margin-top:20px;" type="submit">PŘIDAT</button>
                         </form>
                     </div>
 
-                    <div class="post-bar">
+                    
 
                         <?php
 
                         if ($posts) {
+                            echo '<div class="post-bar">';
                             foreach ($posts as $ROW) {
                                 $user = new User();
                                 $rowUser = $user->getUser($ROW['userid']);
 
                                 include("post.php");
-                            }
+                            } echo '</div>';
                         }
 
                         ?>
 
-                    </div>
+                    
 
                 </div>
             </div>

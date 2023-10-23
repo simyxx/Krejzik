@@ -1,5 +1,12 @@
 <?php 
 
+// Je přihlášen?
+if (!isset($_SESSION['krejzik_userid'])) {
+  // Pokud uživatel není přihlášen, provedete přesměrování na jinou stránku
+  header("Location: login.php");
+  exit;
+}
+
 $profilePic = "img/profilepic.png";
 if (isset($userData))
 {
@@ -25,7 +32,7 @@ if (isset($userData))
                 </div>
               </li>
               <li class="nav-item">
-                <a href="logout.php" class="text-grad">Logout</a>
+                <a href="logout.php" class="text-grad">Odhlásit</a>
               </li>
               <li class="nav-item">
                 <a href="profile.php" class="pfp-container">

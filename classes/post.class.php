@@ -7,36 +7,60 @@ class Post
     public function create_post($userid, $data, $files)
     {
 
-        if (!empty($data['post'])){
-            
+        if (!empty($data['post']) || !empty($files['file']['name']) || isset($data['is_profile_image']) || isset($data['is_cover_image'])) {
+
             $postImg = "";
             $hasImg = 0;
-            
-            if (isset($files['file']['name']) && $files['file']['name'] != "") {
-                // Zpracování obrázku
-                $folder = "uploads/" . $userid . "/";
-                if (!file_exists($folder)) {
-                    mkdir($folder, 0777, true);
-                }
-            
-                // Zajištění, že název souboru bude jedinečný
-                $uploadedFile = $_FILES['file']['name'];
-                $timestamp = time();
-                $fileExtension = pathinfo($uploadedFile, PATHINFO_EXTENSION);
-                $newFilename = $userid . '-' . $timestamp . '.' . $fileExtension;
-                $postImg = $folder . $newFilename;
-                move_uploaded_file($_FILES['file']['tmp_name'], $postImg);
-                $image = new Image();
-                $image->resizeImage($postImg, $postImg, 1500, 1500);
-            
+            $isCoverImg = 0;
+            $isProfileImg = 0;
+            if (isset($data['is_profile_image']) || isset($data['is_cover_image'])) {
+                $postImg = $files;
                 $hasImg = 1;
+                if (isset($data['is_cover_image']))
+                    $isCoverImg = 1;
+                else if (isset($data['is_profile_image']))
+                    $isProfileImg = 1;
             } else {
-                $postImg = "nefunguje"; // Pokud se nepodařilo nahrát obrázek
+                if (!empty($files['file']['name'])) {
+
+                    $hasImg = 1;
+                    // Tvoření složky
+                    $folder = "uploads/" . $userid . "/";
+
+                    // Tvoření bezpečného názvu souboru
+                    $userId = $userid;
+                    $uploadedFile = $_FILES['file']['name'];
+                    $timestamp = time();
+                    $fileExtension = pathinfo($uploadedFile, PATHINFO_EXTENSION);
+                    $newFilename = $userId . '-' . $timestamp . '.' . $fileExtension;
+                    // Tvorba složky
+                    if (!file_exists($folder)) {
+                        mkdir($folder, 0777, true);
+                    }
+                    // Zajištění, že název souboru bude jedinečný
+                    $i = 1;
+                    while (file_exists($folder . $newFilename)) {
+                        $newFilename = $userId . '-' . $timestamp . '_' . $i . '.' . $fileExtension;
+                        $i++;
+                    }
+                    $postImg = $folder . $newFilename;
+                    move_uploaded_file($_FILES['file']['tmp_name'], $postImg);
+                    $imageClass = new Image();
+                    $imageClass->resizeImage($postImg, $postImg, 800, 800);
+
+                }
             }
 
-            $post = addslashes($data['post']);
+            $post = "";
+            if (isset($data['post'])) {
+                $post = addslashes($data['post']);
+            }
+
             $postid = $this->create_postid();
-            $query = "INSERT INTO posts (postid, userid, post, image, has_image) VALUES ('$postid', '$userid', '$post', '$postImg', '$hasImg')";
+            $comments = 0;
+            $likes = 0;
+            $currentDate = date("Y-m-d H:i:s"); // Aktuální datum a čas
+            $query = "INSERT INTO posts (postid, userid, post, image, comments, likes, date, has_image, is_profile_image, is_cover_image) VALUES ('$postid', '$userid', '$post', '$postImg','$comments', '$likes', '$currentDate', '$hasImg', '$isProfileImg', '$isCoverImg')";
 
             $DB = new Database();
             $DB->save($query);

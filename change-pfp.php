@@ -7,9 +7,12 @@ include("classes/user.class.php");
 include("classes/post.class.php");
 include("classes/image.class.php");
 
-$login = new Login();
-$userData = $login->checkLogin($_SESSION['krejzik_userid']);
-
+// Je přihlášen?
+if (!isset($_SESSION['krejzik_userid'])) {
+    // Pokud uživatel není přihlášen, provedete přesměrování na jinou stránku
+    header("Location: login.php");
+    exit;
+}
 // Získaní username
 $user = new User();
 $userData = $user->getData($_SESSION['krejzik_userid']);
@@ -51,9 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 if (isset($_GET['change'])) {
                     $change = $_GET['change'];
                 }
-
-                $image = new Image();
-
                 if ($change == "cover") {
                     if (file_exists($userData['cover_image'] && $userData['cover_image'] != "img/placeholder.png")) {
                         unlink($userData['cover_image']);
@@ -72,11 +72,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                     if ($change == "cover") {
                         $query = "UPDATE users SET cover_image = '$filename' WHERE userid = '$userId' limit 1";
+                        $_POST['is_cover_image'] = 1;
                     } else {
                         $query = "UPDATE users SET profile_image = '$filename' WHERE userid = '$userId' limit 1";
+                        $_POST['is_profile_image'] = 1;
                     }
                     $DB = new Database();
                     $DB->save($query);
+                    
+                    // Vytvořit post o změně pfp
+                    $post = new Post();
+                    
+                    $result = $post->create_post($userId, $_POST, $filename);
+
                     header("Location: profile.php");
                     die();
                 }
