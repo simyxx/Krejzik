@@ -1,4 +1,4 @@
-![gitlogo](https://github.com/simyxx/Krejzik/assets/143736812/a2b0bba8-6ca9-4559-97e4-d8b455fd4a5e)
+![gitlogodva](https://github.com/simyxx/Krejzik/assets/143736812/28c3447f-1625-40a0-8ebd-a5c66bc8fef9)
 
 
 # Krejzik
