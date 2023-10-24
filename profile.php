@@ -5,14 +5,20 @@ include("classes/autoloader.php");
 // Je přihlášen?
 if (!isset($_SESSION['krejzik_userid'])) {
     // Pokud uživatel není přihlášen, provedete přesměrování na jinou stránku
-    header("Location: login.php"); 
-    exit; 
+    header("Location: login.php");
+    exit;
 }
+
+$profile = new Profile();
+$profileData = $profile->getProfile($_GET['id']);
 
 // Získaní username
 $user = new User();
 $userData = $user->getData($_SESSION['krejzik_userid']);
 
+if (is_array($profileData)) {
+    $userData = $profileData[0];
+}
 // Přihlásil se, postování začne tady
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -68,12 +74,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 // Získání postů
 $post = new Post();
-$id = $_SESSION['krejzik_userid'];
+$id = $userData['userid'];
 $posts = $post->get_posts($id);
 
 // Získání přátel
 $user = new User();
-$id = $_SESSION['krejzik_userid'];
+$id = $userData['userid'];
 $friends = $user->getFriends($id);
 
 $imageClass = new Image();
@@ -89,6 +95,7 @@ $imageClass = new Image();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/png" href="img/silenyvlk.png">
 </head>
+
 <body>
     <?php
     include("header.php");
@@ -117,7 +124,7 @@ $imageClass = new Image();
                     }
 
                     ?>
-                    <a href="change-pfp.php?change=profile" >
+                    <a href="change-pfp.php?change=profile">
                         <img src="<?php echo $image ?>" alt="pfp" class="cover-pfp"><br>
                     </a>
                 </span>
@@ -142,7 +149,8 @@ $imageClass = new Image();
 
                         if ($friends) {
                             foreach ($friends as $ROW) {
-
+                                $friend = new User();
+                                $friendRow = $friend->getUser($ROW['userid']);
                                 include("user.php");
                             }
                         }
@@ -156,29 +164,31 @@ $imageClass = new Image();
 
                     <div class="new-feed">
                         <form action="#" method="POST" enctype="multipart/form-data">
-                            <textarea name="post" placeholder="Co máte na mysli?" style="word-wrap: break-word;"></textarea>
+                            <textarea name="post" placeholder="Co máte na mysli?"
+                                style="word-wrap: break-word;"></textarea>
                             <input type="file" name="file">
                             <button style="margin-top:20px;" type="submit">PŘIDAT</button>
                         </form>
                     </div>
 
-                    
 
-                        <?php
 
-                        if ($posts) {
-                            echo '<div class="post-bar">';
-                            foreach ($posts as $ROW) {
-                                $user = new User();
-                                $rowUser = $user->getUser($ROW['userid']);
+                    <?php
 
-                                include("post.php");
-                            } echo '</div>';
+                    if ($posts) {
+                        echo '<div class="post-bar">';
+                        foreach ($posts as $ROW) {
+                            $user = new User();
+                            $rowUser = $user->getUser($ROW['userid']);
+
+                            include("post.php");
                         }
+                        echo '</div>';
+                    }
 
-                        ?>
+                    ?>
 
-                    
+
 
                 </div>
             </div>
