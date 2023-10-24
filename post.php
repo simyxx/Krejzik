@@ -2,7 +2,11 @@
     <div>
         <?php
         $image = "img/profilepic.png";
+        if (file_exists($rowUser['profile_image'])) {
+            $image = $rowUser['profile_image'];
+        }
         $timestamp = $ROW['date'];
+
         ?>
         <img class="post-img" src="<?php echo $image ?>" alt="pfp">
     </div>
