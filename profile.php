@@ -9,16 +9,18 @@ if (!isset($_SESSION['krejzik_userid'])) {
     exit;
 }
 
-$profile = new Profile();
-$profileData = $profile->getProfile($_GET['id']);
-
 // Získaní username
 $user = new User();
 $userData = $user->getData($_SESSION['krejzik_userid']);
 
-if (is_array($profileData)) {
-    $userData = $profileData[0];
+if (isset($_GET['id']) && is_numeric($_GET['id'])){
+    $profile = new Profile();
+    $profileData = $profile->getProfile($_GET['id']);
+    if (is_array($profileData)) {
+        $userData = $profileData[0];
+    }
 }
+
 // Přihlásil se, postování začne tady
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {

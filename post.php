@@ -16,7 +16,7 @@
             if ($ROW['is_profile_image'] || $ROW['is_cover_image']){
                 echo "Uživatel ";
             }
-                 echo $rowUser['username'];
+                 echo htmlspecialchars($rowUser['username']);
             if ($ROW['is_profile_image']) {
                 echo "<span style='font-weight:normal;color:rgb(238, 137, 94);'> si změnil profilovou fotku!</span>";
             } else if ($ROW['is_cover_image']) {
@@ -26,7 +26,7 @@
         </a>
         <div class="post-text">
         <?php
-        echo $ROW['post'];
+        echo htmlspecialchars($ROW['post']);
         ?>
         </div>
         <br><br>

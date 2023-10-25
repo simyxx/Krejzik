@@ -36,7 +36,9 @@ class Post
                     // Tvorba složky
                     if (!file_exists($folder)) {
                         mkdir($folder, 0777, true);
+                        file_put_contents($folder . "index.php", "");
                     }
+
                     // Zajištění, že název souboru bude jedinečný
                     $i = 1;
                     while (file_exists($folder . $newFilename)) {
