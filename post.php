@@ -42,7 +42,7 @@
             <?php echo date('d/m/Y', strtotime($timestamp)); ?>
         </span>
         <span style="color:#999;margin-left:15px">
-            Upravit . Smazat
+           <a href="edit.php">Upravit</a> . <a href="delete.php?p=<?php echo $ROW['postid'] ?>">Smazat</a> 
         </span>
     </div>
 </div>
