@@ -8,9 +8,9 @@ if (!isset($_SESSION['krejzik_userid'])) {
 }
 
 $profilePic = "img/profilepic.png";
-if (isset($userData))
+if (isset($USER) && file_exists($USER['profile_image']))
 {
-  $profilePic = $userData['profile_image'];
+  $profilePic = $USER['profile_image'];
 }
 
 ?>

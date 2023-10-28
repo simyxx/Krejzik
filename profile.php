@@ -13,6 +13,8 @@ if (!isset($_SESSION['krejzik_userid'])) {
 $user = new User();
 $userData = $user->getData($_SESSION['krejzik_userid']);
 
+$USER = $userData; // Přihlášený uživatel a jeho data
+
 if (isset($_GET['id']) && is_numeric($_GET['id'])){
     $profile = new Profile();
     $profileData = $profile->getProfile($_GET['id']);
