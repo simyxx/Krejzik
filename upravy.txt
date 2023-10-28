@@ -1,3 +1,0 @@
-upravy:
-
-zmenit delku username na maximalne 16 (v databazi a udelat podminku pri registraci);

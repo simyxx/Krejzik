@@ -37,7 +37,13 @@
         }
         ?>
         <br><br>
-        <a href="">Like</a> . <a href="">Comment</a> .
+
+        <?php 
+            $likes = "";
+
+            $likes = $ROW['likes'] > 0 ? "(" .  $ROW['likes'] . ")" : "";
+        ?>
+        <a href="like.php?type=post&id=<?php echo $ROW['postid'] ?>">Like<?php echo $likes ?></a> . <a href="">Comment</a> .
         <span style="color:#999;">
             <?php echo date('d/m/Y', strtotime($timestamp)); ?>
         </span>
