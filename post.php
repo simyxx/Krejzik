@@ -42,7 +42,14 @@
             <?php echo date('d/m/Y', strtotime($timestamp)); ?>
         </span>
         <span style="color:#999;margin-left:15px">
-           <a href="edit.php">Upravit</a> . <a href="delete.php?p=<?php echo $ROW['postid'] ?>">Smazat</a> 
+        <?php
+        $post = new Post();
+        if ($post->i_own_post($ROW['postid'], $_SESSION['krejzik_userid']))
+        echo "
+           <a href='edit.php'>Upravit</a>
+            . 
+            <a href='delete.php?p=$ROW[postid]'>Smazat</a>";
+        ?>
         </span>
     </div>
 </div>

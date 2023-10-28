@@ -111,7 +111,24 @@ class Post
         $DB = new Database();
         $query = "DELETE FROM posts WHERE postid = '$postid' LIMIT 1";
         $DB->save($query);
+    }
 
+    public function i_own_post($postid, $krejzik_userid)
+    {
+        if (!is_numeric( $postid)) {
+            return false;
+        }
+        $DB = new Database();
+        $query = "SELECT * FROM posts WHERE postid = '$postid' LIMIT 1";
+        $result = $DB->read($query);
+
+        if (is_array($result)){
+            if ($result[0]['userid'] == $krejzik_userid){
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     private function create_postid()

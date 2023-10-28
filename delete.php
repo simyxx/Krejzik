@@ -3,6 +3,7 @@
 include("classes/autoloader.php");
 
 
+
 // Je přihlášen?
 if (!isset($_SESSION['krejzik_userid'])) {
     // Pokud uživatel není přihlášen, provedete přesměrování na jinou stránku
@@ -21,6 +22,12 @@ if (isset($_GET['p'])) {
     $ROW = $post->get_single_post($_GET['p']);
     if (!$ROW) {
         $error = "Nebyl nalezen příspěvek!";
+    }
+    else 
+    {
+        if ($ROW['userid'] != $_SESSION['krejzik_userid']){
+            $error = "Přístup zamítnut.";
+        }
     }
 
 } else {
@@ -63,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     echo $error;
                 }
 
-                if ($ROW) {
+                else if ($ROW) {
                     // DESIGN DĚLAT V POST-DELETE.PHP
                     echo "<h2>Chcete smazat tento příspěvek?</h2>";
 
@@ -75,10 +82,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                     echo "<br>";
 
+                    echo "<input type='hidden' name='postid' value='$ROW[postid]'>";
+                    echo"<button type='submit'>Smazat</button>";
+
                 }
                 ?>
-                <input type='hidden' name='postid' value='<?php echo $ROW['postid'] ?>'>
-                <button type='submit'>Smazat</button>;
             </form>
         </div>
     </main>
