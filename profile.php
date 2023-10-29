@@ -131,17 +131,27 @@ $imageClass = new Image();
                     <a href="change-pfp.php?change=profile">
                         <img src="<?php echo $image ?>" alt="pfp" class="cover-pfp"><br>
                     </a>
+
+                    <?php
+                        $myLikes = $userData['likes'];
+                    ?>
+
+                    <a href="like.php?type=user&id=<?php echo $userData['userid'] ?>">
+                        <button style="float:right;" type="button">Sledovat</button>
+                    </a>
+
                 </span>
                 <br>
                 <div class="username">
                     <?php echo $userData['username']; ?>
                 </div>
+                
                 <br>
                 <a class="text-grad menu_buttons" href="index.php">Timeline</a>
-                <a class="text-grad menu_buttons" href="">About</a>
-                <a class="text-grad menu_buttons" href="">Friends</a>
-                <a class="text-grad menu_buttons" href="">Photos</a>
-                <a class="text-grad menu_buttons" href="">Settings</a>
+                <a class="text-grad menu_buttons" href="">O uživateli</a>
+                <a class="text-grad menu_buttons" href="">Sledující (<?php echo $myLikes ?>)</a>
+                <a class="text-grad menu_buttons" href="">Fotky</a>
+                <a class="text-grad menu_buttons" href="">Nastavení</a>
             </div>
 
             <div class="below-cover">
@@ -174,8 +184,6 @@ $imageClass = new Image();
                             <button style="margin-top:20px;" type="submit">PŘIDAT</button>
                         </form>
                     </div>
-
-
 
                     <?php
 

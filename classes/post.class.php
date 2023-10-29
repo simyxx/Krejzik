@@ -199,10 +199,9 @@ class Post
     public function like_post($id, $type, $krejzik_userid)
     {
         $DB = new Database();
-        if ($type == "post"){
 
-            //Uložit like detaily
-            $sql = "SELECT likes FROM likes WHERE type ='post' && contentid = '$id' LIMIT 1";
+            // Uložit like detaily
+            $sql = "SELECT likes FROM likes WHERE type ='$type' && contentid = '$id' LIMIT 1";
             $result = $DB->read($sql);
             if (is_array($result)){
 
@@ -215,22 +214,22 @@ class Post
                 
                     $likes[] = $arr;
                     $likesString = json_encode($likes);
-                    $sql = "UPDATE likes SET likes = '$likesString' WHERE type ='post' && contentid = '$id' LIMIT 1";
+                    $sql = "UPDATE likes SET likes = '$likesString' WHERE type ='$type' && contentid = '$id' LIMIT 1";
                     $DB->save($sql);
 
-                    //Inkrementace v tabulce posts
-                    $sql = "UPDATE posts SET likes = likes + 1 WHERE postid = '$id' LIMIT 1";
+                    // Inkrementace ve spravne tabulce
+                    $sql = "UPDATE {$type}s SET likes = likes + 1 WHERE {$type}id = '$id' LIMIT 1";
                     $DB->save($sql);
                 }
                 else {
                     $key = array_search($krejzik_userid, $userIds);
                     unset($likes[$key]);
                     $likesString = json_encode($likes);
-                    $sql = "UPDATE likes SET likes = '$likesString' WHERE type ='post' && contentid = '$id' LIMIT 1";
+                    $sql = "UPDATE likes SET likes = '$likesString' WHERE type ='$type' && contentid = '$id' LIMIT 1";
                     $DB->save($sql);
 
-                    //Dekrementace v tabulce posts
-                    $sql = "UPDATE posts SET likes = likes - 1 WHERE postid = '$id' LIMIT 1";
+                    // Dekrementace ve spravne tabulce
+                    $sql = "UPDATE {$type}s SET likes = likes - 1 WHERE {$type}id = '$id' LIMIT 1";
                     $DB->save($sql);
                 }
                 
@@ -240,17 +239,16 @@ class Post
                 $arr["date"] = date("Y-m-d H:i:s");
                 $array[] = $arr;
 
-                //Dání pole do stringu přes json
+                // Dání pole do stringu přes json
                 $likes = json_encode($array);
                 $sql = "INSERT INTO likes (type, contentid, likes) values ('$type', '$id', '$likes')";
                 $DB->save($sql);
 
-                //Inkrementace v tabulce posts
-                $sql = "UPDATE posts SET likes = likes + 1 WHERE postid = '$id' LIMIT 1";
+                // Inkrementace ve spravne tabulce
+                $sql = "UPDATE {$type}s SET likes = likes + 1 WHERE {$type}id = '$id' LIMIT 1";
                 $DB->save($sql);
+            
             }
-        }
-       
     }
 
     public function get_likes($id, $type)
