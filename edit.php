@@ -11,6 +11,7 @@ if (!isset($_SESSION['krejzik_userid'])) {
     exit;
 }
 
+
 // Získaní username
 $user = new User();
 $userData = $user->getData($_SESSION['krejzik_userid']);
@@ -34,11 +35,19 @@ if (isset($_GET['id'])) {
     $error = "Nebyl nalezen příspěvek!";
 }
 
+// Navrácení na stránku, kde uživatel byl předtím
+$_SESSION['returnTo'] = "profile.php";
+if (isset($_SERVER['HTTP_REFERER']) && !strstr($_SERVER['HTTP_REFERER'], "edit.php")){
+$_SESSION['returnTo'] = $_SERVER['HTTP_REFERER'];
+}
+
 // Něco bylo postnuto
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $result = $post->delete_post($_POST['postid']);
-    header("Location:profile.php");
+    $result = $post->edit_post($_POST, $_FILES);
+
+    
+    header("Location: " . $_SESSION['returnTo']);
     die();
 }
 
@@ -62,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     <main>
         <div class="content">
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
                 <?php
 
                 if ($error != "") {
@@ -74,18 +83,24 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                 else if ($ROW) {
                     // Design toho jednoho postu co se ukáže v post-delete.php
-                    echo "<h2>Chcete smazat tento příspěvek?</h2>";
+                    echo "<h2>Upravte svůj příspěvek!</h2>";
 
                     echo "<br>";
 
-                    $user = new User();
-                    $rowUser = $user->getUser($ROW['userid']);
-                    include("post-delete.php");
+                    echo '<textarea name="post" placeholder="Co máte na mysli?"
+                    style="word-wrap: break-word;">' . $ROW['post'] .  '</textarea>
+                    <input type="file" name="file">';
 
                     echo "<br>";
-
+                    if (file_exists($ROW['image'])) {
+                        $postImg = $ROW['image'];
+                        echo "<div style='text-align:center;'><img src='$postImg' alt='obrázek z příspěvku' style='width:50%;'></div>";
+                    }
+                    echo "<br>";
                     echo "<input type='hidden' name='postid' value='$ROW[postid]'>";
-                    echo"<button type='submit'>Smazat</button>";
+                    echo"<button type='submit'>Uložit</button>";
+
+                    
 
                 }
                 ?>

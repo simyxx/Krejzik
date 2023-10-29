@@ -14,6 +14,8 @@ if (!isset($_SESSION['krejzik_userid'])) {
 $user = new User();
 $userData = $user->getData($_SESSION['krejzik_userid']);
 
+$USER = $userData; // Přihlášený uživatel a jeho data
+
 // Získání postů
 $post = new Post();
 $id = $_SESSION['krejzik_userid'];
