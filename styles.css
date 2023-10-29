@@ -222,16 +222,16 @@ a{
 }
 .post-bar {
     margin-top: 20px;
-    background-color: white;
     padding: 10px;
-    border-radius: 30px;
 }
 .post {
+    background-color: white;
+    border-radius: 30px;
     padding: 4px;
     font-size: 13px;
     display: flex;
     margin-bottom: 20px;
-    width: 250px;
+    max-width: 520px;
 }
 .post-owner {
     font-weight: bold;
@@ -242,13 +242,12 @@ a{
 }
 .friends-area{
     min-height: 400px;
-    flex:1;
     margin-right: 10px;
+    flex: 1;
 }
 .posts-area {
     min-height: 400px;
-    flex:2.5;
-    width: 250px;
+    flex: 2.5;
 }
 .friends-img{
     width: 75px;
@@ -308,6 +307,7 @@ a{
 }
 .new-feed {
     margin-top: 10px;
+    max-width: 800px;
 }
 .tooltip{
     position: relative;
@@ -466,7 +466,7 @@ input[type=file]::file-selector-button {
     border: none;
     background-image: linear-gradient(to right, #E44D26 0%, #F16529  51%, #E44D26  100%);
     padding: 10px 20px;
-    border-radius: 10px;
+    border-radius: 30px;
     color: #fff;
     cursor: pointer;
     transition: background .2s ease-in-out;

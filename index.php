@@ -43,22 +43,6 @@ $posts = $post->get_posts($id);
     <div class="content">
         
         <div id="below-cover">
-            <div id="friends-area">
-                <div id="friends-bar">
-                    <?php
-
-                    $image = "img/profilepic.png";
-                    if (file_exists($userData['profile_image'])) {
-                        $image = $userData['profile_image'];
-                    }
-
-                    ?>
-                    <img src="<?php echo $image ?>" id="cover-pfp" alt="pfp">
-                    <?php echo $userData['username']; ?>
-
-                </div>
-            </div>
-
             <div class="posts-area">
 
             <div class="new-feed">
@@ -77,7 +61,9 @@ $posts = $post->get_posts($id);
                                 $user = new User();
                                 $rowUser = $user->getUser($ROW['userid']);
 
+                                echo '<div style="justify-content: center;">';
                                 include("post.php");
+                                echo '</div>';
                             }
                         }
 
