@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     ?>
 
     <main>
-        <div class="content">
+        <div class="contentsecond">
             <form action="" method="post" enctype="multipart/form-data">
                 <?php
 

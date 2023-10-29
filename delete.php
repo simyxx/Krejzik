@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     ?>
 
     <main>
-        <div class="content">
+        <div class="contentsecond">
             <form action="" method="post">
                 <?php
 
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                 else if ($ROW) {
                     // Design toho jednoho postu co se ukáže v post-delete.php
-                    echo "<h2>Chcete smazat tento příspěvek?</h2>";
+                    echo "<h2>Opravdu chcete smazat tento příspěvek?</h2>";
 
                     echo "<br>";
 

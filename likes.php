@@ -50,7 +50,7 @@ else
     ?>
 
     <main>
-        <div class="content">
+        <div class="contentsecond">
            
                 <?php
 

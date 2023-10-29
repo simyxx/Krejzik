@@ -64,13 +64,20 @@ a{
     font-weight: bold;
     font-size: 19px;
     
-}.navbar{
+}
+.navbar {
+    background-color: #ffffff;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
     min-height: 80px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
 }
+
 .hvezda{
     color: #F16529;
 }
@@ -277,6 +284,13 @@ a{
     width: 800px;
     margin: auto;
     min-height: 400px;
+}
+.contentsecond {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
 .cover {
     background-color: white;
