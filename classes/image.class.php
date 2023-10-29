@@ -225,13 +225,59 @@ class Image
     }
 
     public function getThumbnailCover($filename)
-    {
-        $thumbnail = $filename . "_cover_thumbnail.jpg";
-        $this->cropImage($filename, $thumbnail, 1366, 488);
-        if (file_exists($thumbnail)) {
-            return $thumbnail;
+{
+    $thumbnailWidth = 200;
+    $thumbnailHeight = 200;
+
+    $imageType = 1;
+    if (file_exists($filename)) {
+        if (exif_imagetype($filename) === IMAGETYPE_JPEG) {
+            $originalImage = imagecreatefromjpeg($filename);
+        } elseif (exif_imagetype($filename) === IMAGETYPE_PNG) {
+            $imageType = 2;
+            $originalImage = imagecreatefrompng($filename);
+        } elseif (exif_imagetype($filename) === IMAGETYPE_GIF) {
+            $imageType = 3;
+            $originalImage = imagecreatefromgif($filename);
         } else {
-            return $filename;
+            // Handle unsupported image types or errors here.
+            return $filename; // Return the original file if unsupported type.
         }
+
+        $originalWidth = imagesx($originalImage);
+        $originalHeight = imagesy($originalImage);
+
+        if ($originalWidth == 0) {
+            $originalWidth = 1; // Avoid division by zero
+        }
+
+        if ($originalHeight == 0) {
+            $originalHeight = 1; // Avoid division by zero
+        }
+
+        $newWidth = $thumbnailWidth;
+        $newHeight = $thumbnailHeight;
+
+        $newImage = imagecreatetruecolor($newWidth, $newHeight);
+        imagecopyresampled($newImage, $originalImage, 0, 0, 0, 0, $newWidth, $newHeight, $originalWidth, $originalHeight);
+
+        imagedestroy($originalImage);
+
+        $thumbnailFileName = $filename . "_cover_thumbnail.jpg";
+        switch ($imageType) {
+            case 1:
+                imagejpeg($newImage, $thumbnailFileName, 90);
+                break;
+            case 2:
+                imagepng($newImage, $thumbnailFileName, 9);
+                break;
+            case 3:
+                imagegif($newImage, $thumbnailFileName);
+                break;
+        }
+        imagedestroy($newImage);
+
+        return $thumbnailFileName;
     }
+}
 }

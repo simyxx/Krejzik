@@ -254,11 +254,11 @@ class Post
     public function get_likes($id, $type)
     {
         $DB = new Database();
-        if ($type == "post" && is_numeric($id))
+        if (is_numeric($id))
         {
         
             // Získat detaily o liku na postu
-            $sql = "SELECT likes FROM likes WHERE type ='post' && contentid = '$id' LIMIT 1";
+            $sql = "SELECT likes FROM likes WHERE type ='$type' && contentid = '$id' LIMIT 1";
             $result = $DB->read($sql);
             if (is_array($result)){
 

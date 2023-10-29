@@ -142,68 +142,41 @@ $imageClass = new Image();
 
                 </span>
                 <br>
-                <div class="username">
-                    <?php echo $userData['username']; ?>
-                </div>
+                <a href="profile.php?id=<?php echo $userData['userid'] ?>">
+                    <div class="username">
+                        <?php echo $userData['username']; ?>
+                    </div>
+                </a>
                 
                 <br>
-                <a class="text-grad menu_buttons" href="index.php">Timeline</a>
-                <a class="text-grad menu_buttons" href="">O uživateli</a>
-                <a class="text-grad menu_buttons" href="">Sledující (<?php echo $myLikes ?>)</a>
-                <a class="text-grad menu_buttons" href="">Fotky</a>
-                <a class="text-grad menu_buttons" href="">Nastavení</a>
+                <a class="text-grad menu_buttons" href="index.php&id=<?php echo $userData['userid'] ?>">Timeline</a>
+                <a class="text-grad menu_buttons" href="profile.php?section=about&id=<?php echo $userData['userid'] ?>">O uživateli</a>
+                <a class="text-grad menu_buttons" href="profile.php?section=followers&id=<?php echo $userData['userid'] ?>">Sledující (<?php echo $myLikes ?>)</a>
+                <a class="text-grad menu_buttons" href="profile.php?section=followers&id=<?php echo $userData['userid'] ?>">Sleduje</a>
+                <a class="text-grad menu_buttons" href="profile.php?section=photos&id=<?php echo $userData['userid'] ?>">Fotky</a>
+                <a class="text-grad menu_buttons" href="profile.php?section=settings&id=<?php echo $userData['userid'] ?>">Nastavení</a>
             </div>
 
-            <div class="below-cover">
-                <div class="friends-area">
-                    <div class="friends-bar">
+            <?php 
 
-                        <p style="text-align:center;font-size: 18px;margin-bottom:20px;">Friends</p>
-                        <?php
+                $section = "default";
+                if (isset($_GET['section']))
+                {
+                    $section = $_GET['section'];
 
-                        if ($friends) {
-                            foreach ($friends as $ROW) {
-                                $friend = new User();
-                                $friendRow = $friend->getUser($ROW['userid']);
-                                include("user.php");
-                            }
-                        }
+                }
 
-                        ?>
-
-                    </div>
-                </div>
-
-                <div class="posts-area">
-
-                    <div class="new-feed">
-                        <form action="#" method="POST" enctype="multipart/form-data">
-                            <textarea name="post" placeholder="Co máte na mysli?"
-                                style="word-wrap: break-word;"></textarea>
-                            <input type="file" name="file">
-                            <button style="margin-top:20px;" type="submit">PŘIDAT</button>
-                        </form>
-                    </div>
-
-                    <?php
-
-                    if ($posts) {
-                        echo '<div class="post-bar">';
-                        foreach ($posts as $ROW) {
-                            $user = new User();
-                            $rowUser = $user->getUser($ROW['userid']);
-
-                            include("post.php");
-                        }
-                        echo '</div>';
-                    }
-
-                    ?>
-
-
-
-                </div>
-            </div>
+                if ($section == "default"){
+                    include("profile-content-default.php");
+                }
+                else if ($section == "photos"){
+                    include("profile-content-photos.php");
+                }
+                else if ($section == "followers"){
+                    include("profile-content-followers.php");
+                }
+                
+            ?>
 
         </div>
     </main>

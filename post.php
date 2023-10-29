@@ -90,7 +90,7 @@
                 }
                 else{
                     echo "<br>";
-                    echo "<span class=''>" . "1 člověku se líbí!" . "</span>";
+                    echo "<span class=''>" . "1 uživateli se líbí!" . "</span>";
                 }
                 
             }
@@ -108,7 +108,7 @@
                 }
                 else{
                     echo "<br>";
-                    echo "<span class=''>" . "1 člověku se líbí!" . "</span>";
+                    echo "<span class=''>" . "1 uživateli se líbí!" . "</span>";
                 }
             }
            
