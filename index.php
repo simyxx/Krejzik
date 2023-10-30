@@ -97,7 +97,7 @@ $posts = $post->get_posts($id);
         <div id="below-cover">
             <div class="posts-area">
 
-            <div class="new-feed">
+            <div class="new-feed" style="margin-top:100px">
             <form action="#" method="POST" enctype="multipart/form-data">
                             <textarea name="post" placeholder="Co máte na mysli?"
                                 style="word-wrap: break-word;"></textarea>
