@@ -76,7 +76,13 @@
                 </div>
 
                 <div class="input-container">
-                    <label for="heslo">Heslo <span class="hvezda"> *</span><span class="tooltip" data-tooltip="Heslo musí obsahovat alespoň 8 znaků, velká a malá písmena a číslo.">?</span></label>
+                    <label for="heslo">
+                    Heslo 
+                    <span class="hvezda"> *</span>
+                    <div class="tooltip">?
+                        <span class="tooltiptext">Heslo musí obsahovat alespoň 8 znaků, velká a malá písmena a číslo.</span>
+                    </div> 
+                    </label>
                     <input type="password" id="password" name="password" placeholder="Zadejte heslo" autocomplete="off">
                 </div>
 
