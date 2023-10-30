@@ -149,7 +149,7 @@ $imageClass = new Image();
                 </a>
                 
                 <br>
-                <a class="text-grad menu_buttons" href="index.php&id=<?php echo $userData['userid'] ?>">Timeline</a>
+                <a class="text-grad menu_buttons" href="profile.php?section=default&id=<?php echo $userData['userid'] ?>">Timeline</a>
                 <a class="text-grad menu_buttons" href="profile.php?section=about&id=<?php echo $userData['userid'] ?>">O uživateli</a>
                 <a class="text-grad menu_buttons" href="profile.php?section=followers&id=<?php echo $userData['userid'] ?>">Sledující (<?php echo $myLikes ?>)</a>
                 <a class="text-grad menu_buttons" href="profile.php?section=followers&id=<?php echo $userData['userid'] ?>">Sleduje</a>

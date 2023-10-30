@@ -20,6 +20,10 @@
 
                 <div class="posts-area">
 
+                    <?php
+                    if ($userData['userid'] == $_SESSION['krejzik_userid'])
+                    {
+                    ?>
                     <div class="new-feed">
                         <form action="#" method="POST" enctype="multipart/form-data">
                             <textarea name="post" placeholder="Co máte na mysli?"
@@ -30,6 +34,7 @@
                     </div>
 
                     <?php
+                    }
 
                     if ($posts) {
                         echo '<div class="post-bar">';
