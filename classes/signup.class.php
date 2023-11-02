@@ -119,9 +119,10 @@ class Signup
         // Vytvoření URL adresy
         $url_adress = "u." . $cleanedUsername;
         $userid = $this->create_userid();
-
-        $query = "INSERT INTO users(userid, username, gender, email, password, url_adress, profile_image, cover_image) 
-        VALUES ('$userid', '$username', '$gender', '$email', '$hashedPassword', '$url_adress', '$profileImg', '$coverImg')";
+	$likes = 0;
+	$date = date("Y-m-d");
+        $query = "INSERT INTO users(userid, username, gender, email, password, url_adress, date, profile_image, cover_image, likes) 
+        VALUES ('$userid', '$username', '$gender', '$email', '$hashedPassword', '$url_adress', '$date' '$profileImg', '$coverImg', $likes)";
         
         $DB = new Database();
         $DB->save($query);
