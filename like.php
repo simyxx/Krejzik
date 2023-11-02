@@ -24,6 +24,10 @@ if (isset($_GET['type']) && isset($_GET['id'])){
         if (in_array($_GET['type'], $allowed)){
             $post = new Post();
             $post->like_post($_GET['id'], $_GET['type'], $_SESSION['krejzik_userid']);
+            if ($_GET['type'] == "user"){
+                $User = new User();
+                $User->follow_user($_GET['id'], $_GET['type'], $_SESSION['krejzik_userid']);
+            }
         }
     }
 }

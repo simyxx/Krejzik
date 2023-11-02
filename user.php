@@ -1,6 +1,6 @@
 <?php
 $image = "img/profilepic.png";
-if (file_exists($ROW['profile_image'])) {
+if (isset($ROW['userid']) && isset($ROW['profile_image']) && file_exists($ROW['profile_image'])) {
     $image = $ROW['profile_image'];
 }
 ?>

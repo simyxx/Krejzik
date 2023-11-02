@@ -136,10 +136,15 @@ $imageClass = new Image();
                         $myLikes = $userData['likes'];
                     ?>
 
+                    <?php if (($userData['userid'] != $_SESSION['krejzik_userid']))
+                    {
+                    ?>
                     <a href="like.php?type=user&id=<?php echo $userData['userid'] ?>">
                         <button style="float:right;" type="button">Sledovat</button>
                     </a>
-
+                    <?php 
+                    }
+                    ?>
                 </span>
                 <br>
                 <a href="profile.php?id=<?php echo $userData['userid'] ?>">
@@ -152,7 +157,7 @@ $imageClass = new Image();
                 <a class="text-grad menu_buttons" href="profile.php?section=default&id=<?php echo $userData['userid'] ?>">Timeline</a>
                 <a class="text-grad menu_buttons" href="profile.php?section=about&id=<?php echo $userData['userid'] ?>">O uživateli</a>
                 <a class="text-grad menu_buttons" href="profile.php?section=followers&id=<?php echo $userData['userid'] ?>">Sledující (<?php echo $myLikes ?>)</a>
-                <a class="text-grad menu_buttons" href="profile.php?section=followers&id=<?php echo $userData['userid'] ?>">Sleduje</a>
+                <a class="text-grad menu_buttons" href="profile.php?section=following&id=<?php echo $userData['userid'] ?>">Sleduje</a>
                 <a class="text-grad menu_buttons" href="profile.php?section=photos&id=<?php echo $userData['userid'] ?>">Fotky</a>
                 <a class="text-grad menu_buttons" href="profile.php?section=settings&id=<?php echo $userData['userid'] ?>">Nastavení</a>
             </div>
@@ -174,6 +179,9 @@ $imageClass = new Image();
                 }
                 else if ($section == "followers"){
                     include("profile-content-followers.php");
+                }
+                else if ($section == "following"){
+                    include("profile-content-following.php");
                 }
                 
             ?>

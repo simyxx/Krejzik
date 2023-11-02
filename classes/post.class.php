@@ -38,6 +38,10 @@ class Post
                         mkdir($folder, 0777, true);
                         file_put_contents($folder . "index.php", "");
                     }
+                    $indexFile = $folder . "index.php";
+                    if (!file_exists($indexFile)) {
+                        file_put_contents($indexFile, "Přístup zamítnut!");
+                    }
 
                     // Zajištění, že název souboru bude jedinečný
                     $i = 1;
@@ -98,6 +102,7 @@ class Post
                         mkdir($folder, 0777, true);
                         file_put_contents($folder . "index.php", "");
                     }
+                    
 
                     // Zajištění, že název souboru bude jedinečný
                     $i = 1;
@@ -174,8 +179,24 @@ class Post
             return false;
         }
         $DB = new Database();
+       // Získání informací o příspěvku, včetně cesty k obrázku (pokud existuje)
+        $query = "SELECT image, has_image, is_profile_image, is_cover_image FROM posts WHERE postid = '$postid' LIMIT 1";
+        $result = $DB->read($query);
+
+        if (is_array($result) && !empty($result[0]['image']) && 
+        $result[0]['has_image'] != 1 && 
+        $result[0]['is_profile_image'] != 1 &&
+        $result[0]['is_cover_image'] != 1) {
+        
+            // Smazání obrázku, pokud existuje
+            $imagePath = $result[0]['image'];
+            if (file_exists($imagePath)) {
+                unlink($imagePath); // Smazání souboru
+        }
+    }
         $query = "DELETE FROM posts WHERE postid = '$postid' LIMIT 1";
         $DB->save($query);
+        
     }
 
     public function i_own_post($postid, $krejzik_userid)
