@@ -1,3 +1,9 @@
+<?php 
+if (!isset($_GET['id'])){
+    header("Location: profile.php");
+}
+?>
+
 <div class="post">
     <div>
         <?php

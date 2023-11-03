@@ -107,21 +107,35 @@ $posts = $post->get_posts($id);
                 </div>
 
                 <div class="post-bar">
-                  
-                        <?php
+                <?php
 
-                        if ($posts) {
-                            foreach ($posts as $ROW) {
-                                $user = new User();
-                                $rowUser = $user->getUser($ROW['userid']);
+                    $DB = new Database();
+                    $User = new User();
+                    $followers = $User->get_following($_SESSION['krejzik_userid'], "user");
+                    $followerIds = false;
+                    if (is_array($followers)){
+                        $followerIds = array_column($followers, "userid");
+                        $followerIds = implode("','", $followerIds);
+                    }
+                    if ($followerIds){
+                        $myUserId = $_SESSION['krejzik_userid'];
+                        $sql = "SELECT * FROM posts WHERE userid = '$myUserId' || userid IN('". $followerIds. "') ORDER BY ID DESC LIMIT 30";
+                        $posts = $DB->read($sql);
+                    }
+                    
+                    if ($posts) {
+                        echo '<div class="post-bar">';
+                        foreach ($posts as $ROW) {
+                            $user = new User();
+                            $rowUser = $user->getUser($ROW['userid']);
 
-                                echo '<div style="justify-content: center;">';
-                                include("post.php");
-                                echo '</div>';
-                            }
+                            include("post.php");
                         }
+                        echo '</div>';
+                    }
 
-                        ?>
+                    ?>
+
                 </div>
 
             </div>

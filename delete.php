@@ -2,7 +2,9 @@
 
 include("classes/autoloader.php");
 
-
+if (!isset($_GET['id'])) {
+    header("Location: profile.php");
+}
 
 // Je přihlášen?
 if (!isset($_SESSION['krejzik_userid'])) {
@@ -34,11 +36,10 @@ if (isset($_GET['id'])) {
     $error = "Nebyl nalezen příspěvek!";
 }
 
-// Něco bylo postnuto
-
+// Smazání když bylo Postnuto
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $result = $post->delete_post($_POST['postid']);
-    header("Location:profile.php");
+    header("Location: delete.php");
     die();
 }
 
