@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Krátký popis obsahu stránky">
-    <meta name="keywords" content="klíčová slova, oddělená čárkami">
+    <meta name="description" content="Sociální síť">
+    <meta name="keywords" content="Crazy wolf">
     <title>Krejzik | Registrace</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
