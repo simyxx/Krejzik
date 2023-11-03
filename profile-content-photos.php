@@ -12,7 +12,7 @@
     if (is_array($images)) 
     {
         foreach ($images as $imageRow){
-            echo "<img src='" . $Image->getThumbnailCover($imageRow['image']) . "' alt='' style='width:150px;'>"; 
+            echo "<img src='" . $Image->getThumbnailCover($imageRow['image']) . "' alt='obrázek' style='width:150px;'>"; 
         }
         
     }
