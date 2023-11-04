@@ -8,10 +8,10 @@
         $timestamp = $ROW['date'];
 
         ?>
-        <img class="post-img" src="<?php echo $image ?>" alt="pfp">
+        <a href="profile.php?id=<?php echo $ROW['userid']?>"><img class="post-img" src="<?php echo $image ?>" alt="pfp"></a>
     </div>
     <div>
-        <a class="text-grad post-owner" href="">
+        <a class="text-grad post-owner" href="profile.php?id=<?php echo $ROW['userid']?>">
             <?php
             if ($ROW['is_profile_image'] || $ROW['is_cover_image']){
                 echo "Uživatel ";

@@ -25,8 +25,8 @@ if (isset($USER) && file_exists($USER['profile_image']))
             <ul class="nav-menu">
               <li class="nav-item">
                 <div class="box">
-                    <form action="" name="search">
-                        <input type="text" class="input" name="txt" onmouseout="this.value = ''; this.blur();">
+                    <form action="search.php" method="get" name="search">
+                        <input type="text" class="input" name="find" onmouseout="this.value = ''; this.blur();">
                     </form>
                     <i class="search-icon fa fa-search" style="color: #F16529;"></i>
                 </div>
