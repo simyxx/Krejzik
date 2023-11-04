@@ -108,6 +108,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Krejzik | Změna obrázku</title>
+    <meta name="description" content="Změnťe si profilový obrázek na sociální síťi Krejzik!">
+    <meta name="keywords" content="Crazy Wolf, Krejzik, Krejzac, socialni sit, social media, sociální síť">
+    <link rel="canonical" href="https://krejzik.cz/profile.php"/>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/png" href="img/silenyvlk.png">
 </head>

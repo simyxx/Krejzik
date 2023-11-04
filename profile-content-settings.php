@@ -3,6 +3,10 @@
 <div class="posts-area">
 <?php 
 
+    if ($_GET['id'] != $_SESSION['krejzik_userid']){
+        header("Location: profile.php");
+    }
+
   $Settings = new Settings();
   $settings = $Settings->get_settings($_SESSION['krejzik_userid']);
 

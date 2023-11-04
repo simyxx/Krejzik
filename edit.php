@@ -59,6 +59,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Upravte si příspěvky již dnes a poznejte nové lidi na sociální síťi Krejzik!">
+    <meta name="keywords" content="Crazy Wolf, Krejzik, Krejzac, socialni sit, social media, sociální síť">
+    <link rel="canonical" href="https://krejzik.cz/profile.php"/>
     <title>Krejzik | Upravit</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/png" href="img/silenyvlk.png">
