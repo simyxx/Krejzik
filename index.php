@@ -122,7 +122,7 @@ $posts = $post->get_posts($id);
                     }
                     if ($followerIds){
                         $myUserId = $_SESSION['krejzik_userid'];
-                        $sql = "SELECT * FROM posts WHERE userid = '$myUserId' || userid IN('". $followerIds. "') ORDER BY ID DESC LIMIT 30";
+                        $sql = "SELECT * FROM posts WHERE parent = 0 AND userid = '$myUserId' || userid IN('". $followerIds. "') ORDER BY ID DESC LIMIT 30";
                         $posts = $DB->read($sql);
                     }
                     

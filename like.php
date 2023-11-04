@@ -8,12 +8,10 @@ if (!isset($_SESSION['krejzik_userid'])) {
     exit;
 }
 
-if (isset($_SERVER['HTTP_REFERER'])){
-    $returnTo = $_SERVER['HTTP_REFERER'];
-}
-else {
-    $returnTo = "profile.php";
-}
+$_SESSION['returnTo'] = "profile.php";
+if (isset($_SERVER['HTTP_REFERER']) && !strstr($_SERVER['HTTP_REFERER'], "delete.php")){
+    $_SESSION['returnTo'] = $_SERVER['HTTP_REFERER'];
+    }
 
 if (isset($_GET['type']) && isset($_GET['id'])){
 
@@ -32,5 +30,5 @@ if (isset($_GET['type']) && isset($_GET['id'])){
     }
 }
 
-header("Location: " . $returnTo);
+header("Location: " .$_SESSION['returnTo']);
 die();

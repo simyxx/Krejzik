@@ -94,7 +94,7 @@ $posts = $post->get_posts($id);
 // Získání přátel
 $user = new User();
 $id = $userData['userid'];
-$friends = $user->getFriends($id);
+$friends = $user->get_following($userData['userid'], "user");
 
 $imageClass = new Image();
 ?>
@@ -165,7 +165,7 @@ $imageClass = new Image();
                 </a>
                 
                 <br>
-                <a class="text-grad menu_buttons" href="profile.php?section=default&id=<?php echo $userData['userid'] ?>">Timeline</a>
+                <a class="text-grad menu_buttons" href="profile.php?section=default&id=<?php echo $userData['userid'] ?>">Příspěvky</a>
                 <a class="text-grad menu_buttons" href="profile.php?section=about&id=<?php echo $userData['userid'] ?>">O uživateli</a>
                 <a class="text-grad menu_buttons" href="profile.php?section=followers&id=<?php echo $userData['userid'] ?>">Sledující (<?php echo $myLikes ?>)</a>
                 <a class="text-grad menu_buttons" href="profile.php?section=following&id=<?php echo $userData['userid'] ?>">Sleduje</a>
@@ -177,7 +177,7 @@ $imageClass = new Image();
                 }
                 else 
                 {
-                    echo '<a href="like.php?type=user&id='. $userData['userid'].'"><button style="float:right;" type="button">Sledovat</button></a>';
+                    echo '<a href="like.php?type=user&id='. $userData['userid'].'">Sledovat</a>';
                 }
                 ?>
             </div>

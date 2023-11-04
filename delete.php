@@ -13,6 +13,11 @@ if (!isset($_SESSION['krejzik_userid'])) {
     exit;
 }
 
+$_SESSION['returnTo'] = "profile.php";
+if (isset($_SERVER['HTTP_REFERER']) && !strstr($_SERVER['HTTP_REFERER'], "delete.php")){
+    $_SESSION['returnTo'] = $_SERVER['HTTP_REFERER'];
+    }
+
 // Získaní username
 $user = new User();
 $userData = $user->getData($_SESSION['krejzik_userid']);
@@ -39,7 +44,7 @@ if (isset($_GET['id'])) {
 // Smazání když bylo Postnuto
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $result = $post->delete_post($_POST['postid']);
-    header("Location: delete.php");
+    header("Location:". $_SESSION['returnTo']);
     die();
 }
 

@@ -40,10 +40,13 @@
 
         <?php 
             $likes = "";
-
+            $comments = "(". 0 .")";
+            if ($ROW['comments'] > 0){
+                $comments = "(".$ROW['comments']. ")";
+            }
             $likes = $ROW['likes'] > 0 ? "(" .  $ROW['likes'] . ")" : "";
         ?>
-        <a href="like.php?type=post&id=<?php echo $ROW['postid'] ?>">Like<?php echo $likes ?></a> . <a href="">Comment</a> .
+        <a href="like.php?type=post&id=<?php echo $ROW['postid'] ?>">Like<?php echo $likes ?></a> . <a href="single-post.php?id=<?php echo $ROW['postid'] ?>">Komentáře<?php echo $comments ?></a> .
         <span style="color:#999;">
             <?php echo date('d/m/Y', strtotime($timestamp)); ?>
         </span>

@@ -6,7 +6,7 @@ class Post
 
     public function create_post($userid, $data, $files)
     {
-
+            $DB = new Database();
         if (!empty($data['post']) || !empty($files['file']['name']) || isset($data['is_profile_image']) || isset($data['is_cover_image'])) {
 
             $postImg = "";
@@ -63,12 +63,19 @@ class Post
             }
 
             $postid = $this->create_postid();
+            $parent = "";
+
+            if (isset($data['parent']) && is_numeric($data['parent'])){
+                $parent = $data['parent'];
+                $sql = "UPDATE posts SET comments = comments +1 WHERE postid = '$parent' LIMIT 1";
+                $DB->save($sql);
+            }
             $comments = 0;
             $likes = 0;
             $currentDate = date("Y-m-d H:i:s"); // Aktuální datum a čas
-            $query = "INSERT INTO posts (postid, userid, post, image, comments, likes, date, has_image, is_profile_image, is_cover_image) VALUES ('$postid', '$userid', '$post', '$postImg','$comments', '$likes', '$currentDate', '$hasImg', '$isProfileImg', '$isCoverImg')";
+            $query = "INSERT INTO posts (postid, userid, post, image, comments, likes, date, has_image, is_profile_image, is_cover_image, parent) VALUES ('$postid', '$userid', '$post', '$postImg','$comments', '$likes', '$currentDate', '$hasImg', '$isProfileImg', '$isCoverImg', '$parent')";
 
-            $DB = new Database();
+            
             $DB->save($query);
         } else {
             $this->error = "Zadejte cokoliv do příspěvku!<br>";
@@ -144,7 +151,20 @@ class Post
 
     public function get_posts($id)
     {
-        $query = "SELECT * FROM posts WHERE userid = '$id' ORDER BY id DESC limit 10";
+        $query = "SELECT * FROM posts WHERE parent = 0 AND userid = '$id' ORDER BY id DESC limit 30";
+        $DB = new Database();
+        $result = $DB->read($query);
+
+        if ($result) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
+    public function get_comments($id)
+    {
+        $query = "SELECT * FROM posts WHERE parent = '$id' ORDER BY id ASC";
         $DB = new Database();
         $result = $DB->read($query);
 
@@ -175,10 +195,21 @@ class Post
 
     public function delete_post($postid)
     {
+        $DB = new Database();
         if (!is_numeric( $postid)) {
             return false;
         }
-        $DB = new Database();
+        $sql = "SELECT parent FROM posts WHERE postid = '$postid' LIMIT 1";
+        $result = $DB->read($sql);
+        if (is_array($result)){
+            if ($result[0]['parent'] > 0){
+            $parent = $result[0]['parent'];
+            $sql = "UPDATE posts SET comments = comments -1 WHERE postid = '$parent' LIMIT 1";
+            $DB->save($sql);
+        }
+        }
+        
+        
        // Získání informací o příspěvku, včetně cesty k obrázku (pokud existuje)
         $query = "SELECT image, has_image, is_profile_image, is_cover_image FROM posts WHERE postid = '$postid' LIMIT 1";
         $result = $DB->read($query);

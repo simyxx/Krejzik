@@ -2,13 +2,13 @@
                 <div class="friends-area">
                     <div class="friends-bar">
 
-                        <p style="text-align:center;font-size: 18px;margin-bottom:20px;">Friends</p>
+                        <p style="text-align:center;font-size: 18px;margin-bottom:20px;">Sleduje</p>
                         <?php
 
                         if ($friends) {
-                            foreach ($friends as $ROW) {
-                                $friend = new User();
-                                $friendRow = $friend->getUser($ROW['userid']);
+                            foreach ($friends as $friend) {
+                                $user = new User();
+                                $ROW = $user->getUser($friend['userid']);
                                 include("user.php");
                             }
                         }
