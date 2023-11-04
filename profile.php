@@ -177,7 +177,7 @@ $imageClass = new Image();
                 }
                 else 
                 {
-                    echo '<a href="like.php?type=user&id='. $userData['userid'].'><button style="float:right;" type="button">Sledovat</button></a>';
+                    echo '<a href="like.php?type=user&id='. $userData['userid'].'"><button style="float:right;" type="button">Sledovat</button></a>';
                 }
                 ?>
             </div>

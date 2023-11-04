@@ -4,7 +4,7 @@
 <?php 
 
   $Settings = new Settings();
-  $settings = $Settings->get_settings($_SESSION['krejzik_userid']);
+  $settings = $Settings->get_settings($_GET['id']);
 
     if (is_array($settings))
     {
