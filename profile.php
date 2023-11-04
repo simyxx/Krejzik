@@ -26,7 +26,15 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])){
 // Přihlásil se, postování začne tady
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $post = new Post();
+    
+    if(isset($_POST['username'])){
+
+        $Settings = new Settings();
+        $Settings->save_settings($_POST, $_SESSION['krejzik_userid']);
+
+    }
+    else {
+        $post = new Post();
     $id = $_SESSION['krejzik_userid'];
 
     // Zkontrolovat, zda byl nahrán soubor
@@ -74,6 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             echo "</div>";
         }
     }
+    }
+    
 }
 
 // Získání postů
@@ -136,12 +146,10 @@ $imageClass = new Image();
                         $myLikes = $userData['likes'];
                     ?>
 
-                    <?php if (($userData['userid'] != $_SESSION['krejzik_userid']))
+                    <?php if ($userData['userid'] != $_SESSION['krejzik_userid'])
                     {
                     ?>
-                    <a href="like.php?type=user&id=<?php echo $userData['userid'] ?>">
-                        <button style="float:right;" type="button">Sledovat</button>
-                    </a>
+                    
                     <?php 
                     }
                     ?>
@@ -159,7 +167,16 @@ $imageClass = new Image();
                 <a class="text-grad menu_buttons" href="profile.php?section=followers&id=<?php echo $userData['userid'] ?>">Sledující (<?php echo $myLikes ?>)</a>
                 <a class="text-grad menu_buttons" href="profile.php?section=following&id=<?php echo $userData['userid'] ?>">Sleduje</a>
                 <a class="text-grad menu_buttons" href="profile.php?section=photos&id=<?php echo $userData['userid'] ?>">Fotky</a>
-                <a class="text-grad menu_buttons" href="profile.php?section=settings&id=<?php echo $userData['userid'] ?>">Nastavení</a>
+                <?php 
+                if ($userData['userid'] == $_SESSION['krejzik_userid'])
+                {
+                    echo '<a class="text-grad menu_buttons" href="profile.php?section=settings&id='.$userData['userid'] .'">Nastavení</a>';
+                }
+                else 
+                {
+                    echo '<a href="like.php?type=user&id='. $userData['userid'].'><button style="float:right;" type="button">Sledovat</button></a>';
+                }
+                ?>
             </div>
 
             <?php 
@@ -182,6 +199,12 @@ $imageClass = new Image();
                 }
                 else if ($section == "following"){
                     include("profile-content-following.php");
+                }
+                else if ($section == "settings"){
+                    include("profile-content-settings.php");
+                }
+                else if ($section == "about"){
+                    include("profile-content-about.php");
                 }
                 
             ?>

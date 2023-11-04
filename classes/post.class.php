@@ -71,7 +71,7 @@ class Post
             $DB = new Database();
             $DB->save($query);
         } else {
-            $this->error = "Přidejte text nebo obrázek do příspěvku!<br>";
+            $this->error = "Zadejte cokoliv do příspěvku!<br>";
         }
         return $this->error;
     }

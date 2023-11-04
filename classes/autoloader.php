@@ -7,6 +7,7 @@ include("classes/user.class.php");
 include("classes/post.class.php");
 include("classes/image.class.php");
 include("classes/profile.class.php");
+include("classes/settings.class.php");
 
 // Získaní username
 $user = new User();

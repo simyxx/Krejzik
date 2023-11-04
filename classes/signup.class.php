@@ -112,17 +112,18 @@ class Signup
         $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
         $profileImg = "img/profilepic.png";
         $coverImg = "img/placeholder.png";
-
+        
         $cleanedUsername = iconv('UTF-8', 'ASCII//TRANSLIT', $username);
         $cleanedUsername = strtolower($cleanedUsername);
         
         // Vytvoření URL adresy
         $url_adress = "u." . $cleanedUsername;
         $userid = $this->create_userid();
-	$likes = 0;
-	$date = date("Y-m-d");
-        $query = "INSERT INTO users(userid, username, gender, email, password, url_adress, date, profile_image, cover_image, likes) 
-        VALUES ('$userid', '$username', '$gender', '$email', '$hashedPassword', '$url_adress', '$date' '$profileImg', '$coverImg', $likes)";
+	    $likes = 0;
+	    $date = date("Y-m-d");
+        $about = "Vítejte na mém profilu! Jsem " . $username;
+        $query = "INSERT INTO users(userid, username, gender, email, password, url_adress, date, profile_image, cover_image, likes, about) 
+        VALUES ('$userid', '$username', '$gender', '$email', '$hashedPassword', '$url_adress', '$date', '$profileImg', '$coverImg', '$likes', '$about')";
         
         $DB = new Database();
         $DB->save($query);
