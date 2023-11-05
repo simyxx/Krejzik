@@ -47,8 +47,13 @@
                         echo '</div>';
                     }
 
+                    $pg = PaginationLink();
                     ?>
 
+                        <a href="<?= $pg['nextPage'] ?>"><button style="float:right;"
+                                type="button">Další stránka</button></a>
+                        <a href="<?= $pg['prevPage'] ?>"><button style="float:left"
+                                type="button">Minulá stránka</button></a>
 
 
                 </div>

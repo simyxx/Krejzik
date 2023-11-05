@@ -151,7 +151,12 @@ class Post
 
     public function get_posts($id)
     {
-        $query = "SELECT * FROM posts WHERE parent = 0 AND userid = '$id' ORDER BY id DESC limit 30";
+        // Pagination logika
+        $pageNumber = (isset($_GET['page'])) ? (int) $_GET['page'] : 1;
+        $pageNumber = ($pageNumber < 1) ? 1 : $pageNumber;
+        $limit = 10;
+        $offset = ($pageNumber - 1) * $limit;
+        $query = "SELECT * FROM posts WHERE parent = 0 AND userid = '$id' ORDER BY id DESC limit $limit OFFSET $offset";
         $DB = new Database();
         $result = $DB->read($query);
 
@@ -164,7 +169,12 @@ class Post
 
     public function get_comments($id)
     {
-        $query = "SELECT * FROM posts WHERE parent = '$id' ORDER BY id ASC";
+        // Pagination logika
+        $pageNumber = (isset($_GET['page'])) ? (int) $_GET['page'] : 1;
+        $pageNumber = ($pageNumber < 1) ? 1 : $pageNumber;
+        $limit = 8;
+        $offset = ($pageNumber - 1) * $limit;
+        $query = "SELECT * FROM posts WHERE parent = '$id' ORDER BY id ASC limit $limit OFFSET $offset";
         $DB = new Database();
         $result = $DB->read($query);
 

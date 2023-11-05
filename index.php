@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 include("classes/autoloader.php");
 
@@ -6,8 +6,8 @@ include("classes/autoloader.php");
 // Je přihlášen?
 if (!isset($_SESSION['krejzik_userid'])) {
     // Pokud uživatel není přihlášen, provedete přesměrování na jinou stránku
-    header("Location: login.php"); 
-    exit; 
+    header("Location: login.php");
+    exit;
 }
 
 // Získaní username
@@ -78,28 +78,32 @@ $posts = $post->get_posts($id);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="Crazy Wolf, Krejzik, Krejzac, socialni sit, social media, sociální síť">
-    <link rel="canonical" href="https://krejzik.cz/"/>
+    <link rel="canonical" href="https://krejzik.cz/" />
     <!-- Primary Meta Tags -->
     <title>Krejzik | Poznejte nové lidi!</title>
     <meta name="title" content="Krejzik | Poznejte nové lidi!" />
-    <meta name="description" content="Přidejte se k uživatelům sociální sítě Krejzik a poznejte hromady nových lidí se stejnými zájmy!" />
+    <meta name="description"
+        content="Přidejte se k uživatelům sociální sítě Krejzik a poznejte hromady nových lidí se stejnými zájmy!" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="krejzik.cz" />
     <meta property="og:title" content="Krejzik | Poznejte nové lidi!" />
-    <meta property="og:description" content="Přidejte se k uživatelům sociální sítě Krejzik a poznejte hromady nových lidí se stejnými zájmy!" />
+    <meta property="og:description"
+        content="Přidejte se k uživatelům sociální sítě Krejzik a poznejte hromady nových lidí se stejnými zájmy!" />
     <meta property="og:image" content="img/silenyvlk.png" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="krejzik.cz" />
     <meta property="twitter:title" content="Krejzik | Poznejte nové lidi!" />
-    <meta property="twitter:description" content="Přidejte se k uživatelům sociální sítě Krejzik a poznejte hromady nových lidí se stejnými zájmy!" />
+    <meta property="twitter:description"
+        content="Přidejte se k uživatelům sociální sítě Krejzik a poznejte hromady nových lidí se stejnými zájmy!" />
     <meta property="twitter:image" content="img/silenyvlk.png" />
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -108,61 +112,77 @@ $posts = $post->get_posts($id);
 </head>
 
 <body>
-    <?php 
+    <?php
     include("header.php");
     ?>
 
     <main>
-    <div class="content">
-        
-        <div id="below-cover">
-            <div class="posts-area">
+        <div class="content">
 
-            <div class="new-feed" style="margin-top:100px">
-            <form action="#" method="POST" enctype="multipart/form-data">
+            <div id="below-cover">
+                <div class="posts-area">
+
+                    <div class="new-feed" style="margin-top:100px">
+                        <form action="#" method="POST" enctype="multipart/form-data">
                             <textarea name="post" placeholder="Co máte na mysli?"
                                 style="word-wrap: break-word;"></textarea>
                             <input type="file" name="file">
                             <button style="margin-top:20px;" type="submit">PŘIDAT</button>
                         </form>
-                </div>
+                    </div>
 
-                <div class="post-bar">
-                <?php
+                    <div class="post-bar">
+                        <?php
+                        
+                        // Pagination logika
+                        $pageNumber = (isset($_GET['page'])) ? (int) $_GET['page'] : 1;
+                        $pageNumber = ($pageNumber < 1) ? 1 : $pageNumber;
 
-                    $DB = new Database();
-                    $User = new User();
-                    $followers = $User->get_following($_SESSION['krejzik_userid'], "user");
-                    $followerIds = false;
-                    if (is_array($followers)){
-                        $followerIds = array_column($followers, "userid");
-                        $followerIds = implode("','", $followerIds);
-                    }
-                    if ($followerIds){
-                        $myUserId = $_SESSION['krejzik_userid'];
-                        $sql = "SELECT * FROM posts WHERE parent = 0 AND (userid = '$myUserId' || userid IN('". $followerIds. "')) ORDER BY ID DESC LIMIT 30";
-                        $posts = $DB->read($sql);
-                    }
-                    
-                    if ($posts) {
-                        echo '<div class="post-bar">';
-                        foreach ($posts as $ROW) {
-                            $user = new User();
-                            $rowUser = $user->getUser($ROW['userid']);
+                        $pg = PaginationLink($pageNumber);
 
-                            include("post.php");
+                        $limit = 10;
+                        $offset = ($pageNumber - 1) * $limit;
+
+                        
+                        $DB = new Database();
+                        $User = new User();
+                        $followers = $User->get_following($_SESSION['krejzik_userid'], "user");
+                        $followerIds = false;
+                        if (is_array($followers)) {
+                            $followerIds = array_column($followers, "userid");
+                            $followerIds = implode("','", $followerIds);
                         }
-                        echo '</div>';
-                    }
+                        if ($followerIds) {
+                            $myUserId = $_SESSION['krejzik_userid'];
+                            $sql = "SELECT * FROM posts WHERE parent = 0 AND (userid = '$myUserId' || userid IN('" . $followerIds . "')) ORDER BY ID DESC LIMIT $limit OFFSET $offset";
+                            $posts = $DB->read($sql);
+                        }
 
-                    ?>
+                        if ($posts) {
+                            echo '<div class="post-bar">';
+                            foreach ($posts as $ROW) {
+                                $user = new User();
+                                $rowUser = $user->getUser($ROW['userid']);
+
+                                include("post.php");
+                            }
+                            echo '</div>';
+                        }
+
+                        ?>
+                        
+                        <a href="<?= $pg['nextPage'] ?>"><button style="float:right;"
+                                type="button">Další stránka</button></a>
+                        <a href="<?= $pg['prevPage'] ?>"><button style="float:left"
+                                type="button">Minulá stránka</button></a>
+ 
+                    </div>
 
                 </div>
-
             </div>
-        </div>
 
-    </div>
+        </div>
     </main>
 </body>
+
 </html>
