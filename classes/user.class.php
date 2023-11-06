@@ -55,50 +55,49 @@ class User
     }
 
     public function follow_user($id, $type, $krejzik_userid)
-    {
-        $DB = new Database();
+{
+    $DB = new Database();
 
-            // Uložit follow detaily
-            $sql = "SELECT following FROM likes WHERE type ='$type' && contentid = '$krejzik_userid' LIMIT 1";
-            $result = $DB->read($sql);
-            if (is_array($result)){
+    // Uložit follow detaily
+    $sql = "SELECT following, likes FROM likes WHERE type ='$type' && contentid = '$krejzik_userid' LIMIT 1";
+    $result = $DB->read($sql);
 
-                $following = json_decode($result[0]['following'], true);
-                
-                $userIds = array_column($following, "userid");
-                if (!in_array($id, $userIds)){
-                    $arr["userid"] = $id;
-                    $arr["date"] = date("Y-m-d H:i:s");
-                
-                    $following[] = $arr;
-                    $followingString = json_encode($following);
-                    $sql = "UPDATE likes SET following = '$followingString' WHERE type ='$type' && contentid = '$krejzik_userid' LIMIT 1";
-                    $DB->save($sql);
-
-                }
-                else {
-                    $key = array_search($id, $userIds);
-                    unset($following[$key]);
-                    $followingString = json_encode($following);
-                    $sql = "UPDATE likes SET following = '$followingString' WHERE type ='$type' && contentid = '$krejzik_userid' LIMIT 1";
-                    $DB->save($sql);
-
-                }
-                
-            }
-            else 
-            {
-                $arr["userid"] = $id;
-                $arr["date"] = date("Y-m-d H:i:s");
-                $array[] = $arr;
-
-                // Dání pole do stringu přes json
-                $following = json_encode($array);
-                $sql = "INSERT INTO likes (type, contentid, following) values ('$type', '$krejzik_userid', '$following')";
-                $DB->save($sql);
-            
-            }
+    if (is_array($result)) {
+        $following = json_decode($result[0]['following'], true);
+        $likes = json_decode($result[0]['likes'], true);
+    } else {
+        $following = [];
+        $likes = [];
     }
+
+    if (!in_array($id, array_column($following, "userid"))) {
+        $arr["userid"] = $id;
+        $arr["date"] = date("Y-m-d H:i:s");
+        $following[] = $arr;
+    } else {
+        $key = array_search($id, array_column($following, "userid"));
+        unset($following[$key]);
+    }
+
+    // Připravíme prázdné pole pro sloupec "likes" v JSON formátu, pokud je prázdné
+    if (empty($likes)) {
+        $likes = [];
+    }
+
+    // Připravíme JSON řetězec pro sloupce "likes" a "following"
+    $likesString = json_encode($likes);
+    $followingString = json_encode($following);
+
+    // Aktualizace nebo vytvoření záznamu v tabulce
+    if (is_array($result)) {
+        $sql = "UPDATE likes SET following = '$followingString', likes = '$likesString' WHERE type ='$type' && contentid = '$krejzik_userid' LIMIT 1";
+    } else {
+        $sql = "INSERT INTO likes (type, contentid, likes, following) values ('$type', '$krejzik_userid', '$likesString', '$followingString')";
+    }
+
+    $DB->save($sql);
+}
+
 
     public function get_following($id, $type)
     {

@@ -63,7 +63,7 @@ class Post
             }
 
             $postid = $this->create_postid();
-            $parent = "";
+            $parent = 0;
 
             if (isset($data['parent']) && is_numeric($data['parent'])){
                 $parent = $data['parent'];
@@ -258,30 +258,38 @@ class Post
         return false;
     }
 
-       public function like_post($id, $type, $krejzik_userid)
-{
-    $DB = new Database();
-
-    // Uložit like detaily
-    $sql = "SELECT likes FROM likes WHERE type ='$type' && contentid = '$id' LIMIT 1";
-    $result = $DB->read($sql);
-    if (is_array($result)) {
-
-        $likes = json_decode($result[0]['likes'], true);
-
-        if (is_array($likes)) {  // Zkontrolujte, zda $likes je pole
-
+    public function like_post($id, $type, $krejzik_userid)
+    {
+        $DB = new Database();
+    
+        // Uložit like detaily
+        $sql = "SELECT likes, following FROM likes WHERE type ='$type' && contentid = '$id' LIMIT 1";
+        $result = $DB->read($sql);
+    
+        if (is_array($result)) {
+            $likes = json_decode($result[0]['likes'], true);
+            $following = json_decode($result[0]['following'], true);
+    
+            if (!is_array($likes)) {
+                $likes = [];
+            }
+    
+            if (!is_array($following)) {
+                // Vložit prázdné pole pouze tehdy, když "following" je prázdné
+                $following = [];
+            }
+    
             $userIds = array_column($likes, "userid");
-
+    
             if (!in_array($krejzik_userid, $userIds)) {
                 $arr["userid"] = $krejzik_userid;
                 $arr["date"] = date("Y-m-d H:i:s");
-
+    
                 $likes[] = $arr;
                 $likesString = json_encode($likes);
                 $sql = "UPDATE likes SET likes = '$likesString' WHERE type ='$type' && contentid = '$id' LIMIT 1";
                 $DB->save($sql);
-
+    
                 // Inkrementace ve správné tabulce
                 $sql = "UPDATE {$type}s SET likes = likes + 1 WHERE {$type}id = '$id' LIMIT 1";
                 $DB->save($sql);
@@ -291,29 +299,40 @@ class Post
                 $likesString = json_encode($likes);
                 $sql = "UPDATE likes SET likes = '$likesString' WHERE type ='$type' && contentid = '$id' LIMIT 1";
                 $DB->save($sql);
-
+    
                 // Dekrementace ve správné tabulce
                 $sql = "UPDATE {$type}s SET likes = likes - 1 WHERE {$type}id = '$id' LIMIT 1";
                 $DB->save($sql);
             }
+    
+            // Připravíme JSON řetězec pro sloupce "likes" a "following"
+            $likesString = json_encode($likes);
+            $followingString = json_encode($following);
+    
+            // Aktualizace nebo vytvoření záznamu v tabulce
+            $sql = "UPDATE likes SET likes = '$likesString', following = '$followingString' WHERE type ='$type' && contentid = '$id' LIMIT 1";
+            $DB->save($sql);
+        } else {
+            // Vytvoření prázdného pole
+            $likes = array();
+            $arr["userid"] = $krejzik_userid;
+            $arr["date"] = date("Y-m-d H:i:s");
+            $likes[] = $arr;
+    
+            // Připravíme JSON řetězec pro sloupce "likes" a "following"
+            $likesString = json_encode($likes);
+            $followingString = json_encode([]);
+    
+            // Dání pole do stringu přes json
+            $sql = "INSERT INTO likes (type, contentid, likes, following) values ('$type', '$id', '$likesString', '$followingString')";
+            $DB->save($sql);
+    
+            // Inkrementace ve správné tabulce
+            $sql = "UPDATE {$type}s SET likes = likes + 1 WHERE {$type}id = '$id' LIMIT 1";
+            $DB->save($sql);
         }
-    } else {
-        // Vytvoření prázdného pole
-        $likes = array();
-        $arr["userid"] = $krejzik_userid;
-        $arr["date"] = date("Y-m-d H:i:s");
-        $likes[] = $arr;
-
-        // Dání pole do stringu přes json
-        $likesString = json_encode($likes);
-        $sql = "INSERT INTO likes (type, contentid, likes) values ('$type', '$id', '$likesString')";
-        $DB->save($sql);
-
-        // Inkrementace ve správné tabulce
-        $sql = "UPDATE {$type}s SET likes = likes + 1 WHERE {$type}id = '$id' LIMIT 1";
-        $DB->save($sql);
     }
-}
+    
 
     public function get_likes($id, $type)
     {

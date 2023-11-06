@@ -138,7 +138,7 @@ $posts = $post->get_posts($id);
                         $pageNumber = (isset($_GET['page'])) ? (int) $_GET['page'] : 1;
                         $pageNumber = ($pageNumber < 1) ? 1 : $pageNumber;
 
-                        $pg = PaginationLink($pageNumber);
+                        $pg = PaginationLink();
 
                         $limit = 10;
                         $offset = ($pageNumber - 1) * $limit;
