@@ -16,7 +16,7 @@
 
 <form action="#" method="POST" enctype="multipart/form-data">
                 
-                <div class="input-container">
+                <div class="input-container" style="margin-top:15px;">
                     <label for="email">Uživatelské jméno</label>
                     <input  type="text" id="username" name="username" value="<?php echo htmlspecialchars($settings['username']) ?>" placeholder="Zadejte jméno" autocomplete="off">
                 </div>
@@ -53,7 +53,7 @@
                 <label for="about">O mně:</label>
                 <textarea name="about" style="word-wrap: break-word;"><?php echo htmlspecialchars($settings['about']) ?></textarea>
 
-                <button style="margin-top:20px;" type="submit">PŘIDAT</button>
+                <button style="margin-top:20px;margin-bottom:20px;" type="submit">ULOŽIT</button>
                 
             </form>
 <?php

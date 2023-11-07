@@ -72,7 +72,7 @@ else
 
     <main>
         <div class="contentsecond">
-           
+        <h3>Příspěvek se libí:</h3>
                 <?php
 
                 $User = new User();
@@ -81,7 +81,7 @@ else
                         ?>
  
                         <!-- Stylování jednoho zobrazenýho uživatele v tomhle divu  -->
-                        <div>
+                        <div class="kokoti">
                         <?php
                         foreach ($likes as $row) {   
                             $ROW = $User->getUser($row['userid']); 

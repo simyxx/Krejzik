@@ -33,7 +33,9 @@
         <?php
         if (file_exists($ROW['image'])) {
             $postImg = $ROW['image'];
-            echo "<img src='$postImg' alt='obrázek z příspěvku' style='width:100%;'>";
+            echo "<a class='zoomable-image' href='$postImg' target='_blank'>";
+            echo "<img src='$postImg' alt='obrázek z příspěvku' style='width:95%;border-radius:10px;'>";
+            echo "</a>";
         }
         ?>
         <br><br>
@@ -118,8 +120,31 @@
         }
         echo "</a>";
         ?>
-       
+<script>
+    const zoomableImages = document.querySelectorAll('.zoomable-image');
 
+    zoomableImages.forEach(image => {
+        image.addEventListener('click', (e) => {
+            e.preventDefault();
+            const imageUrl = image.getAttribute('href');
+            const enlargedImage = new Image();
+            enlargedImage.src = imageUrl;
+            enlargedImage.style.maxWidth = '80%';
+            enlargedImage.style.maxHeight = '80%';
+            enlargedImage.style.position = 'fixed';
+            enlargedImage.style.top = '50%';
+            enlargedImage.style.left = '50%';
+            enlargedImage.style.transform = 'translate(-50%, -50%)';
+            enlargedImage.style.zIndex = '999';
+
+            enlargedImage.addEventListener('click', () => {
+                document.body.removeChild(enlargedImage);
+            });
+
+            document.body.appendChild(enlargedImage);
+        });
+    });
+</script>
 
     </div>
 </div>

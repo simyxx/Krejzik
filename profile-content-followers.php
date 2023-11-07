@@ -1,6 +1,6 @@
 
     <!-- Stylovani pres class tohohle divu (idealne treba class photo-area ;3 [a pro kazdej profile-content soubor vlastni classu s takhle odlisnym nazvem ;3]) -->
-<div class="posts-area">
+<div class="followers-area" style="margin-top:20px;">
 <?php 
 
     $Image = new Image();

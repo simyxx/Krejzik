@@ -182,7 +182,7 @@ $imageClass = new Image();
                 </a>
                 
                 <br>
-                <a class="text-grad menu_buttons" href="profile.php?section=default&id=<?php echo $userData['userid'] ?>">Příspěvky</a>
+                <a class="text-grad menu_buttons" style="margin-bottom:20px;" href="profile.php?section=default&id=<?php echo $userData['userid'] ?>">Příspěvky</a>
                 <a class="text-grad menu_buttons" href="profile.php?section=about&id=<?php echo $userData['userid'] ?>">O uživateli</a>
                 <a class="text-grad menu_buttons" href="profile.php?section=followers&id=<?php echo $userData['userid'] ?>">Sledující (<?php echo $myLikes ?>)</a>
                 <a class="text-grad menu_buttons" href="profile.php?section=following&id=<?php echo $userData['userid'] ?>">Sleduje</a>
@@ -194,7 +194,7 @@ $imageClass = new Image();
                 }
                 else 
                 {
-                    echo '<a href="like.php?type=user&id='. $userData['userid'].'">Sledovat</a>';
+                    echo '<a class="follow"href="like.php?type=user&id='. $userData['userid'].'"><i class="fa-regular fa-user"></i> Sledovat <i class="fa-solid fa-user"></i></a>';
                 }
                 ?>
             </div>

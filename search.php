@@ -68,7 +68,7 @@ else {
     ?>
 
     <main>
-        <div class="contentsecond">
+        <div class="contentsecond" style="margin-top:100px;">
            
         <h3>Výsledky hledání:</h3>
 
@@ -80,7 +80,7 @@ else {
                         ?>
  
                         <!-- Stylování jednoho zobrazenýho uživatele v tomhle divu  -->
-                        <div>
+                        <div class="kokoti">
                         <?php
                         foreach ($results as $row) {   
                             $ROW = $User->getUser($row['userid']); 

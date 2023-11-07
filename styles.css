@@ -121,6 +121,13 @@ a{
     border-radius: 25px;
     display: block;
 }
+.follow{
+    background-image: linear-gradient(to right, #E44D26 0%, #F16529  51%, #E44D26  100%);
+    padding: 7px 20px;
+    text-align: center;
+    color: white;            
+    border-radius: 25px;
+}
 .btn-grad:hover {
     background-position: right center;
     color: #fff;
@@ -217,6 +224,12 @@ a{
     margin: 2px;
     font-size: 15px;
 }
+.aboutme{
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 30px;
+    padding: 15px;
+}
 .post-img {
     width: 75px;
     margin-right: 4px;
@@ -251,6 +264,40 @@ a{
     min-height: 400px;
     flex: 2.5;
 }
+.followers-area {
+    background-color: white;
+    border-radius: 30px;
+    padding: 20px;
+    min-height: 200px;
+    flex: 2.5;
+    display: flex;
+    flex-wrap: wrap;
+}
+.kokoti {
+    margin-top: 10px;
+    background-color: white;
+    border-radius: 30px;
+    padding: 20px;
+    min-height: 200px;
+    flex: 2.5;
+    display: flex;
+    flex-wrap: wrap;
+}
+.contentsecond {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+}
+.following-area {
+    background-color: white;
+    border-radius: 30px;
+    padding: 20px;
+    min-height: 200px;
+    flex: 2.5;
+    display: flex;
+    flex-wrap: wrap;
+}
 .friends-img{
     width: 75px;
     float: left;
@@ -271,6 +318,7 @@ a{
 .friends {
     display: flex;
     margin-bottom: 20px;
+    width: 240px;
 }
 .friends-buttons {
     font-size: 16px;
@@ -279,13 +327,6 @@ a{
     width: 800px;
     margin: auto;
     min-height: 400px;
-}
-.contentsecond {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
 }
 .cover {
     background-color: white;

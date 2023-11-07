@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 <div class="below-cover">
                 <div class="friends-area">
                     <div class="friends-bar">
@@ -50,10 +51,12 @@
                     $pg = PaginationLink();
                     ?>
 
-                        <a href="<?= $pg['nextPage'] ?>"><button style="float:right;"
-                                type="button">Další stránka</button></a>
-                        <a href="<?= $pg['prevPage'] ?>"><button style="float:left"
-                                type="button">Minulá stránka</button></a>
+                        <a href="<?= $pg['nextPage'] ?>"><button style="float:right;margin-top:10px;"
+                                type="button">Další stránka  <i class="fas fa-chevron-right"></i></button>
+                        </a>
+                        <a href="<?= $pg['prevPage'] ?>"><button style="float:left;margin-top:10px;"
+                                type="button"><i class="fas fa-chevron-left"></i>  Minulá stránka</button>
+                        </a>
 
 
                 </div>

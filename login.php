@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/png" href="img/silenyvlk.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
 </head>
 <body>
@@ -88,4 +89,13 @@
         </div>
     </main>
 </body>
+<footer style="background-color: white; padding: 10px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <a href="mailto:krejzik.help@gmail.com" class="text-grad" style="flex: 0.5; width:50px;">krejzik.help@gmail.com</a>
+        <a href="https://www.instagram.com/krejzik.dev/" target="_blank" style="flex: 0.5; text-align: right;width:50px;">
+            <i class="fa-brands fa-instagram" style="color: #ff8000;"></i>
+        </a>
+    </div>
+</footer>
+
 </html>

@@ -8,9 +8,8 @@
 
     if (is_array($settings))
     {
-
+        echo "<div class='aboutme'>";
         echo "<h3>O mně</h3>";
-        echo "<div class=''>";
         echo htmlspecialchars($settings['about']);
         echo "</div>";
 
