@@ -21,7 +21,7 @@ if (isset($_GET['id']) && isset($_GET['type'])) {
 } 
 else 
 {
-    $error = "Žádné informace nebyly nalezeny!";
+    header("Location: index.php");
 }
 
 ?>

@@ -3,6 +3,8 @@
 <div class="posts-area">
 <?php 
 
+
+
     if ($_GET['id'] != $_SESSION['krejzik_userid']){
         header("Location: profile.php");
     }

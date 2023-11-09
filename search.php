@@ -18,7 +18,7 @@ if (isset($_GET['find'])) {
 
 }
 else {
-
+    header("Location: index.php");
 }
 
 ?>

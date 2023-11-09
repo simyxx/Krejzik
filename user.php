@@ -1,4 +1,7 @@
 <?php
+if (!isset($rowUser)){
+    header("Location: index.php");
+}
 $image = "img/profilepic.png";
 if (isset($ROW['userid']) && isset($ROW['profile_image']) && file_exists($ROW['profile_image'])) {
     $image = $ROW['profile_image'];

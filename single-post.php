@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 <?php
 
 include("classes/autoloader.php");
@@ -21,7 +20,7 @@ $error = "";
 if (isset($_GET['id'])) {
     $ROW = $post->get_single_post($_GET['id']);
 } else {
-    $error = "Žádné informace nebyly nalezeny!";
+    header("Location: index.php");
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -72,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <meta property="twitter:image" content="img/silenyvlk.png" />
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="icon" type="image/png" href="img/silenyvlk.png">
 
 </head>
@@ -119,6 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     include("comment.php");
                 }
             }
+            
             $pg = PaginationLink();
         ?>
                         <a href="<?= $pg['nextPage'] ?>"><button style="float:right;"

@@ -3,6 +3,7 @@
 <div class="following-area" style="margin-top:20px;">
 <?php 
 
+
     $Image = new Image();
     $Post = new Post();
     $User = new User();

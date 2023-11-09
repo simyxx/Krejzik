@@ -1,6 +1,9 @@
 <div class="post">
     <div>
         <?php
+        if (!isset($rowUser)){
+            header("Location: index.php");
+        }
         $image = "img/profilepic.png";
         if (file_exists($rowUser['profile_image'])) {
             $image = $rowUser['profile_image'];

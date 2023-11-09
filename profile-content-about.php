@@ -3,6 +3,8 @@
 <div class="posts-area">
 <?php 
 
+
+
   $Settings = new Settings();
   $settings = $Settings->get_settings($_GET['id']);
 

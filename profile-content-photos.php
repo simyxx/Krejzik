@@ -2,6 +2,7 @@
     <!-- Stylovani pres class tohohle divu (idealne treba class photo-area ;3 [a pro kazdej profile-content soubor vlastni classu s takhle odlisnym nazvem ;3]) -->
 <div class="posts-area" style="margin-top:20px;padding-left:15px;">
 <?php 
+    
 
     $DB = new Database();
     $sql = "SELECT image, postid FROM posts WHERE has_image = 1 && userid =  $userData[userid] ORDER BY id DESC LIMIT 30";
