@@ -29,8 +29,23 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     if(isset($_POST['username'])){
 
-        $Settings = new Settings();
-        $Settings->save_settings($_POST, $_SESSION['krejzik_userid']);
+        $password = $_POST['password'];
+        $Signup = new Signup();
+        if (!$Signup->isPasswordStrongEnough($password)){
+            echo "<div  style='text-align:center;font-size:18px;color:white;background-color:#F16529;'>";
+            echo "Heslo není dostatečně silné!<br>";
+            echo "</div>";
+        }
+        else if ($password != $_POST['password-again']){
+            echo "<div  style='text-align:center;font-size:18px;color:white;background-color:#F16529;'>";
+            echo "Hesla nejsou stejná!<br>";
+            echo "</div>";
+        }
+        else {
+            $Settings = new Settings();
+            $Settings->save_settings($_POST, $_SESSION['krejzik_userid']);
+        }
+       
 
     }
     else {

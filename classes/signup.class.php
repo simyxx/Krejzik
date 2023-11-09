@@ -169,7 +169,7 @@ class Signup
         return !empty($result);
     }
 
-    private function isPasswordStrongEnough($password)
+    public function isPasswordStrongEnough($password)
     {
     // Minimální délka hesla
     $minLength = 8;
