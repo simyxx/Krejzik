@@ -122,10 +122,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $pg = PaginationLink();
         ?>
                         <a href="<?= $pg['nextPage'] ?>"><button style="float:right;"
-                                type="button">Další stránka  <i class="fas fa-chevron-right"></i></button>
+                                type="button">Další komentáře  <i class="fas fa-chevron-right"></i></button>
                         </a>
                         <a href="<?= $pg['prevPage'] ?>"><button style="float:left;"
-                                type="button"><i class="fas fa-chevron-left"></i>  Minulá stránka</button>
+                                type="button"><i class="fas fa-chevron-left"></i>  Minulé komentáře</button>
                         </a>
         </div>
     </main>
