@@ -13,6 +13,7 @@ class Database
     {
 
         $connection = mysqli_connect($this->host, $this->username, $this->password, $this->db);
+        mysqli_set_charset($connection, "utf8mb4");
         return $connection;
     
     }
@@ -59,6 +60,3 @@ class Database
     }
 
 }
-
-$DB = new Database();
-

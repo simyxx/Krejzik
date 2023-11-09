@@ -43,11 +43,11 @@
                         <span class="tooltiptext">Heslo musí obsahovat alespoň 8 znaků, velká a malá písmena a číslo.</span>
                     </div> 
                     </label>
-                    <input type="password" id="password" name="password" placeholder="Zadejte nové heslo" value="<?php echo htmlspecialchars("heslo123X") ?>" autocomplete="off">
+                    <input type="password" id="password" name="password" placeholder="Zadejte nové heslo" autocomplete="off">
                 </div>
                 <div class="input-container">
                     <label for="heslo">Heslo znovu <span class="hvezda"> *</span></label>
-                    <input type="password" id="password-again" name="password-again" value="<?php echo htmlspecialchars("heslo123X") ?>" placeholder="Zadejte znovu nové heslo" autocomplete="off">
+                    <input type="password" id="password-again" name="password-again" placeholder="Zadejte znovu nové heslo" autocomplete="off">
                 </div>
 
                 <label for="about">O mně:</label>
