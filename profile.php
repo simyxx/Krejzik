@@ -29,21 +29,39 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     if(isset($_POST['username'])){
 
+        $settingsError = "";
         $password = $_POST['password'];
+        $email = $_POST['email'];
+        $username = $_POST['username'];
         $Signup = new Signup();
-        if (!$Signup->isPasswordStrongEnough($password)){
-            echo "<div  style='text-align:center;font-size:18px;color:white;background-color:#F16529;'>";
-            echo "Heslo není dostatečně silné!<br>";
-            echo "</div>";
+        if (!$Signup->isPasswordStrongEnough($password))
+        {
+            $settingsError .= "Heslo není dostatečně silné!<br>";
         }
-        else if ($password != $_POST['password-again']){
-            echo "<div  style='text-align:center;font-size:18px;color:white;background-color:#F16529;'>";
-            echo "Hesla nejsou stejná!<br>";
-            echo "</div>";
+        if ($password != $_POST['password-again'])
+        {
+            $settingsError .= "Hesla nejsou stejná!<br>";
         }
-        else {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+        {
+            $settingsError .= "Zadejte opravdový e-mail!<br>";
+        }
+        if (!ctype_alpha($username))
+        {
+            $settingsError .= "Zadejte přezdívku obsahující pouze písmena!<br>";
+        }
+
+
+        if ($settingsError == "") {
             $Settings = new Settings();
             $Settings->save_settings($_POST, $_SESSION['krejzik_userid']);
+        }
+        else 
+        {
+            echo "<div  style='text-align:center;font-size:18px;color:white;background-color:#F16529;'>";
+            echo "Nastala chyba: <br>";
+            echo $settingsError;
+            echo "</div>";
         }
        
 

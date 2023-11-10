@@ -20,11 +20,11 @@
                 
                 <div class="input-container" style="margin-top:15px;">
                     <label for="email">Uživatelské jméno</label>
-                    <input  type="text" id="username" name="username" value="<?php echo htmlspecialchars($settings['username']) ?>" placeholder="Zadejte jméno" autocomplete="off">
+                    <input  type="text" id="username" name="username" value="<?php echo htmlspecialchars($settings['username']) ?>" placeholder="Zadejte jméno" autocomplete="off" required>
                 </div>
                 <div class="input-container">
                     <label for="email">Email</label>
-                    <input  type="text" id="email" name="email" value="<?php echo htmlspecialchars($settings['email']) ?>" placeholder="Zadejte email" autocomplete="off">
+                    <input  type="text" id="email" name="email" value="<?php echo htmlspecialchars($settings['email']) ?>" placeholder="Zadejte email" autocomplete="off" required>
                 </div>
 
                 <div class="input-container">
@@ -45,11 +45,11 @@
                         <span class="tooltiptext">Heslo musí obsahovat alespoň 8 znaků, velká a malá písmena a číslo.</span>
                     </div> 
                     </label>
-                    <input type="password" id="password" name="password" value="<?php echo htmlspecialchars($settings['password']) ?>" placeholder="Zadejte nové heslo" autocomplete="off">
+                    <input type="password" id="password" name="password" value="<?php echo htmlspecialchars($settings['password']) ?>" placeholder="Zadejte nové heslo" autocomplete="off" required>
                 </div>
                 <div class="input-container">
                     <label for="heslo">Heslo znovu</label>
-                    <input type="password" id="password-again" name="password-again" value="<?php echo htmlspecialchars($settings['password']) ?>" placeholder="Zadejte znovu nové heslo" autocomplete="off">
+                    <input type="password" id="password-again" name="password-again" value="<?php echo htmlspecialchars($settings['password']) ?>" placeholder="Zadejte znovu nové heslo" autocomplete="off" required>
                 </div>
 
                 <label for="about">O mně:</label>
