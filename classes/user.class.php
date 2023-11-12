@@ -120,4 +120,25 @@ class User
         return false;
     }
 
+    public function amIFollowingUser($userid, $followedUserID)
+    {
+        $DB = new Database();
+
+        // Získat detaily o followech
+        $sql = "SELECT following FROM likes WHERE type ='user' && contentid = '$userid'";
+        $result = $DB->read($sql);
+
+        if (is_array($result)) {
+            $following = json_decode($result[0]['following'], true);
+
+            if (is_array($following)) {
+                $userIds = array_column($following, "userid");
+
+                return in_array($followedUserID, $userIds);
+            }
+        }
+
+        return false;
+    }
+
 }

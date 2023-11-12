@@ -228,7 +228,13 @@ $imageClass = new Image();
                 }
                 else 
                 {
-                    echo '<a class="follow"href="like.php?type=user&id='. $userData['userid'].'"><i class="fa-regular fa-user"></i> Sledovat <i class="fa-solid fa-user"></i></a>';
+                    $followingUser = $user->amIFollowingUser($_SESSION['krejzik_userid'], $userData['userid']); 
+                    if (!$followingUser){
+                        echo '<a class="follow"href="like.php?type=user&id='. $userData['userid'].'"><i class="fa-regular fa-user"></i>Sledovat</a>';
+                    }
+                    else {
+                        echo '<a class="follow"href="like.php?type=user&id='. $userData['userid'].'"> <i class="fa-solid fa-user"></i>Odebrat</a>';
+                    }
                 }
                 ?>
             </div>
