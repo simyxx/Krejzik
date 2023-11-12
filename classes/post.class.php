@@ -60,6 +60,10 @@ class Post
             $post = "";
             if (isset($data['post'])) {
                 $post = addslashes($data['post']);
+                if (!$this->postWordsNotTooLong($post)){
+                    $this->error = "Přidejte něco správného!<br>";
+                    return $this->error;
+                }
             }
 
             $postid = $this->create_postid();
@@ -147,6 +151,18 @@ class Post
             $this->error = "Přidejte text nebo obrázek do příspěvku!<br>";
         }
         return $this->error;
+    }
+
+    public function postWordsNotTooLong($postMessage) {
+        $words = str_word_count($postMessage, 1);
+        
+        foreach ($words as $word) {
+            if (mb_strlen($word, 'UTF-8') > 30) {
+                return false; // Slovo je delší než 30 znaků
+            }
+        }
+
+        return true; // Žádné slovo není delší než 30 znaků
     }
 
     public function get_posts($id)

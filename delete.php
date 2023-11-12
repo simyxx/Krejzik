@@ -4,6 +4,7 @@ include("classes/autoloader.php");
 
 if (!isset($_GET['id'])) {
     header("Location: profile.php");
+    die();
 }
 
 // Je přihlášen?

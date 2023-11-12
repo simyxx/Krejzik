@@ -45,10 +45,15 @@ $_SESSION['returnTo'] = $_SERVER['HTTP_REFERER'];
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $result = $post->edit_post($_POST, $_FILES);
-
-    
-    header("Location: " . $_SESSION['returnTo']);
-    die();
+    if (!$post->postWordsNotTooLong($_POST['post'])) {
+        echo "<div  style='text-align:center;font-size:18px;color:white;background-color:#F16529;'>";
+            echo "Přidejte něco správného!<br>";
+            echo "</div>";
+    } else {
+        // Přesměrování na návratovou adresu
+        header("Location: " . $_SESSION['returnTo']);
+        exit();
+    }
 }
 
 ?>

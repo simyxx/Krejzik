@@ -51,10 +51,10 @@
                     ?>
 
                         <a href="<?= $pg['nextPage'] ?>"><button style="float:right;margin-top:10px;"
-                                type="button">Další stránka  <i class="fas fa-chevron-right"></i></button>
+                                type="button">Dále<i class="fas fa-chevron-right"></i></button>
                         </a>
                         <a href="<?= $pg['prevPage'] ?>"><button style="float:left;margin-top:10px;"
-                                type="button"><i class="fas fa-chevron-left"></i>  Minulá stránka</button>
+                                type="button"><i class="fas fa-chevron-left"></i>Zpět</button>
                         </a>
 
 
