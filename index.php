@@ -123,12 +123,13 @@ $posts = $post->get_posts($id);
                 <div class="posts-area">
 
                     <div class="new-feed" style="margin-top:100px">
-                        <form action="#" method="POST" enctype="multipart/form-data">
-                            <textarea name="post" placeholder="Co máte na mysli?"
-                                style="word-wrap: break-word;"></textarea>
+                        <form id="postForm" action="#" method="POST" enctype="multipart/form-data">
+                            <textarea id="postText" name="post" placeholder="Co máte na mysli?" style="word-wrap: break-word;"
+                                oninput="updateCharacterCount()"></textarea>
+                            <div id="charCount" style="float:right;">0/300</div>
                             <input type="file" name="file">
                             <button style="margin-top:20px;" type="submit">PŘIDAT</button>
-                        </form>
+                    	</form>
                     </div>
 
                     <div class="post-bar">
@@ -180,7 +181,20 @@ $posts = $post->get_posts($id);
 
                 </div>
             </div>
+		<script>
+                    function updateCharacterCount() {
+                        var text = document.getElementById('postText').value;
+                        var charCount = text.length;
 
+                        // Omezení délky textu na 300 znaků
+                        if (charCount > 300) {
+                            document.getElementById('postText').value = text.substring(0, 300);
+                            charCount = 300;
+                        }
+
+                        document.getElementById('charCount').innerText = charCount + '/300';
+                        }
+            	</script>
         </div>
     </main>
 </body>
