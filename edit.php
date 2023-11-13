@@ -113,9 +113,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                     echo "<br>";
 
-                    echo '<textarea name="post" placeholder="Co máte na mysli?"
+                    echo '<textarea name="post" id="postText" oninput="updateCharacterCount()" placeholder="Co máte na mysli?"
                     style="word-wrap: break-word;">' . $ROW['post'] .  '</textarea>
                     <input type="file" name="file">';
+                    echo '<div id="charCount" style="float:right;">0/300</div>';
 
                     echo "<br>";
                     if (file_exists($ROW['image'])) {
@@ -133,6 +134,25 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             </form>
         </div>
     </main>
+    <script>
+                    function updateCharacterCount() {
+                        var text = document.getElementById('postText').value;
+                        var charCount = text.length;
+
+                        // Omezení délky textu na 300 znaků
+                        if (charCount > 300) {
+                            document.getElementById('postText').value = text.substring(0, 300);
+                            charCount = 300;
+                        }
+
+                        document.getElementById('charCount').innerText = charCount + '/300';
+                        }
+
+                     // Zavolání funkce po načtení stránky
+                    window.onload = function () {
+                        updateCharacterCount();
+                    };
+                </script>
 </body>
 
 </html>

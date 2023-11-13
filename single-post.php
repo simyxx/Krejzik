@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $result = $post->create_post($id, $_POST, $_FILES);
 
     if ($result == "") {
-        header("Location: ".$_SERVER['HTTP_REFERER']);
+        header("Location: " . $_SERVER['HTTP_REFERER']);
         die();
     } else {
         echo "<div  style='text-align:center;font-size:18px;color:white;background-color:#F16529;'>";
@@ -50,24 +50,27 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="Crazy Wolf, Krejzik, Krejzac, socialni sit, social media, sociální síť">
-    <link rel="canonical" href="https://krejzik.cz/"/>
+    <link rel="canonical" href="https://krejzik.cz/" />
     <!-- Primary Meta Tags -->
     <title>Krejzik | Poznejte nové lidi!</title>
     <meta name="title" content="Krejzik | Poznejte nové lidi!" />
-    <meta name="description" content="Přidejte se k uživatelům sociální sítě Krejzik a poznejte hromady nových lidí se stejnými zájmy!" />
+    <meta name="description"
+        content="Přidejte se k uživatelům sociální sítě Krejzik a poznejte hromady nových lidí se stejnými zájmy!" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="krejzik.cz" />
     <meta property="og:title" content="Krejzik | Poznejte nové lidi!" />
-    <meta property="og:description" content="Přidejte se k uživatelům sociální sítě Krejzik a poznejte hromady nových lidí se stejnými zájmy!" />
+    <meta property="og:description"
+        content="Přidejte se k uživatelům sociální sítě Krejzik a poznejte hromady nových lidí se stejnými zájmy!" />
     <meta property="og:image" content="img/silenyvlk.png" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="krejzik.cz" />
     <meta property="twitter:title" content="Krejzik | Poznejte nové lidi!" />
-    <meta property="twitter:description" content="Přidejte se k uživatelům sociální sítě Krejzik a poznejte hromady nových lidí se stejnými zájmy!" />
+    <meta property="twitter:description"
+        content="Přidejte se k uživatelům sociální sítě Krejzik a poznejte hromady nových lidí se stejnými zájmy!" />
     <meta property="twitter:image" content="img/silenyvlk.png" />
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -90,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <main>
         <div class="contentsecond">
 
-        
+
             <?php
 
             if (is_array($ROW)) {
@@ -99,37 +102,51 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
             }
             ?>
-        
-        <div class="new-feed">
-            <form action="#" method="POST" enctype="multipart/form-data">
-                <textarea name="post" placeholder="Co si o příspěvku myslíte?"
-                    style="word-wrap: break-word;"></textarea>
-                <input type="file" name="file">
-                <input type="hidden" name="parent" value="<?php echo $ROW['postid'] ?>">
-                <button style="margin-top:20px;" type="submit">PŘIDAT</button>
-            </form>
-        </div>
-        
-        
-        <?php 
+
+            <div class="new-feed">
+                <form id="postForm" action="#" method="POST" enctype="multipart/form-data">
+                    <textarea id="postText" name="post" placeholder="Co máte na mysli?" style="word-wrap: break-word;"
+                        oninput="updateCharacterCount()"></textarea>
+                    <div id="charCount" style="float:right;">0/300</div>
+                    <input type="file" name="file">
+                    <button style="margin-top:20px;" type="submit">PŘIDAT</button>
+                </form>
+            </div>
+
+
+            <?php
             $comments = $post->get_comments($ROW['postid']);
-            if (is_array($comments)){
+            if (is_array($comments)) {
                 foreach ($comments as $COMMENT) {
                     $rowUser = $user->getUser($COMMENT['userid']);
                     include("comment.php");
                 }
             }
-            
+
             $pg = PaginationLink();
-        ?>
-                        <a href="<?= $pg['nextPage'] ?>"><button style="float:right;"
-                                type="button">Dále<i class="fas fa-chevron-right"></i></button>
-                        </a>
-                        <a href="<?= $pg['prevPage'] ?>"><button style="float:left;"
-                                type="button"><i class="fas fa-chevron-left"></i>Zpět</button>
-                        </a>
+            ?>
+            <a href="<?= $pg['nextPage'] ?>"><button style="float:right;" type="button">Dále<i
+                        class="fas fa-chevron-right"></i></button>
+            </a>
+            <a href="<?= $pg['prevPage'] ?>"><button style="float:left;" type="button"><i
+                        class="fas fa-chevron-left"></i>Zpět</button>
+            </a>
         </div>
     </main>
+    <script>
+        function updateCharacterCount() {
+            var text = document.getElementById('postText').value;
+            var charCount = text.length;
+
+            // Omezení délky textu na 300 znaků
+            if (charCount > 300) {
+                document.getElementById('postText').value = text.substring(0, 300);
+                charCount = 300;
+            }
+
+            document.getElementById('charCount').innerText = charCount + '/300';
+        }
+    </script>
 </body>
 
 </html>

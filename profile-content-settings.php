@@ -53,7 +53,9 @@
                 </div>
 
                 <label for="about">O mně:</label>
-                <textarea name="about" style="word-wrap: break-word;"><?php echo htmlspecialchars($settings['about']) ?></textarea>
+                <textarea id="postText" name="about" placeholder="Co máte na mysli?" style="word-wrap: break-word;"
+                        oninput="updateCharacterCount()"><?php echo htmlspecialchars($settings['about']) ?></textarea>
+                    <div id="charCount" style="float:right;">0/300</div>
 
                 <button style="margin-top:20px;margin-bottom:20px;" type="submit">ULOŽIT</button>
                 
@@ -63,3 +65,20 @@
  ?> 
 
 </div>
+<script>
+        function updateCharacterCount() {
+            var text = document.getElementById('postText').value;
+            var charCount = text.length;
+
+            // Omezení délky textu na 300 znaků
+            if (charCount > 300) {
+                document.getElementById('postText').value = text.substring(0, 300);
+                charCount = 300;
+            }
+
+            document.getElementById('charCount').innerText = charCount + '/300';
+        }
+        window.onload = function () {
+                        updateCharacterCount();
+                    };
+    </script>
