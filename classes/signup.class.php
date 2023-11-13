@@ -23,15 +23,19 @@ class Signup
                     {
                         $this->error = $this->error . "Toto uživatelské jméno je zabrané!<br>";
                     }
-                    if (is_numeric($value)) 
+                    else if (is_numeric($value)) 
                     {
                         $this->error = $this->error . "Uživatelské jméno nemůže být jenom číslo!<br>";
                     }
-                    if (strstr($value, " "))
+                    else if (!preg_match('/^[A-Za-z]+$/', $value))
+                    {
+                        $this->error = $this->error . "Zadejte přezdívku obsahující pouze písmena!<br>";
+                    }           
+                    else if (strstr($value, " "))
                     {
                         $this->error = $this->error . "Uživatelské jméno nemůže obsahovat mezeru!<br>";
                     }
-                    if (strlen($value) > 16)
+                    else if (strlen($value) > 16)
                     {
                         $this->error = $this->error . "Uživatelské jméno musí mít maximálně 16 znaků!<br>";
                     }
