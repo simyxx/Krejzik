@@ -110,7 +110,7 @@
                     <label for="heslo">Heslo znovu <span class="hvezda"> *</span></label>
                     <input type="password" id="password-again" name="password-again" placeholder="Zadejte znovu heslo" autocomplete="off">
                 </div>
-
+		<a href="Ochrana_osobnich_udaju_Krejzik.pdf" target="_blank">Ochrana osobních údajů</a>
                 <input type="submit" class="button" value="Registrovat" name="submit">
                 
             </form>
