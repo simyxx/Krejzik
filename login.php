@@ -89,11 +89,11 @@
         </div>
     </main>
 </body>
-<footer style="background-color: white; padding: 10px;">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <a href="mailto:krejzik.help@gmail.com" class="text-grad" style="flex: 0.5; width:50px;">krejzik.help@gmail.com</a>
-        <a href="https://www.instagram.com/krejzik.dev/" target="_blank" style="flex: 0.5; text-align: right;width:50px;">
-            <i class="fa-brands fa-instagram" style="color: #ff8000;"></i>
+<footer>
+    <div class="footer">
+        <a href="mailto:krejzik.help@gmail.com" class="text-grad">krejzik.help@gmail.com</a>
+        <a href="https://www.instagram.com/krejzik.dev/" target="_blank">
+            <i class="fa-brands fa-instagram"></i>
         </a>
     </div>
 </footer>

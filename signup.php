@@ -110,7 +110,7 @@
                     <label for="heslo">Heslo znovu <span class="hvezda"> *</span></label>
                     <input type="password" id="password-again" name="password-again" placeholder="Zadejte znovu heslo" autocomplete="off">
                 </div>
-		<a href="Ochrana_osobnich_udaju_Krejzik.pdf" target="_blank">Ochrana osobních údajů</a>
+                <p style="font-size: small; text-align: left;margin-bottom:10px;">Registrací vyjadřujete souhlas se <a href="Ochrana_osobnich_udaju_Krejzik.pdf" style="font-size: small; color: #ff8000;" target="_blank">zásadami ochrany osobních údajů</a>.</p>
                 <input type="submit" class="button" value="Registrovat" name="submit">
                 
             </form>
@@ -119,11 +119,11 @@
         </div>
     </main>
 </body>
-<footer style="background-color: white; padding: 10px;">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <a href="mailto:krejzik.help@gmail.com" class="text-grad" style="flex: 0.5; width:50px;">krejzik.help@gmail.com</a>
-        <a href="https://www.instagram.com/krejzik.dev/" target="_blank" style="flex: 0.5; text-align: right;width:50px;">
-            <i class="fa-brands fa-instagram" style="color: #ff8000;"></i>
+<footer>
+    <div class="footer">
+        <a href="mailto:krejzik.help@gmail.com" class="text-grad">krejzik.help@gmail.com</a>
+        <a href="https://www.instagram.com/krejzik.dev/" target="_blank">
+            <i class="fa-brands fa-instagram"></i>
         </a>
     </div>
 </footer>

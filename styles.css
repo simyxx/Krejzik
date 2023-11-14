@@ -46,7 +46,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 95vh;
     background-color: #f3eeee;
 }
 header {
@@ -54,6 +54,23 @@ header {
     position: fixed;
     width: 100%;
     z-index: 999;
+}
+.footer {
+    background-color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.footer a {
+    font-family: Montserrat, sans-serif;
+    background: linear-gradient(to right, #E44D26 0%, #F16529  51%, #E44D26  100%);
+    animation: animatedgradient 1s ease-in-out infinite;
+    background-clip: text;
+    -webkit-background-clip:text;
+    color:rgb(223, 104, 57);
+    display:block;
+    transition: color .2s ease-in-out;
 }
 li{
     list-style: none;
