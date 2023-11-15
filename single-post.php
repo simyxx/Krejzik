@@ -104,12 +104,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             ?>
 
             <div class="new-feed">
-                <form id="postForm" action="#" method="POST" enctype="multipart/form-data">
-                    <textarea id="postText" name="post" placeholder="Co máte na mysli?" style="word-wrap: break-word;"
-                        oninput="updateCharacterCount()"></textarea>
+                <form action="#" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+                    <textarea name="post" id="postText" placeholder="Co si o příspěvku myslíte?"
+                        style="word-wrap: break-word;" oninput="updateCharacterCount()"></textarea>
                     <div id="charCount" style="float:right;">0/300</div>
                     <input type="file" name="file">
-                    <button style="margin-top:20px;" type="submit">PŘIDAT</button>
+                    <input type="hidden" name="parent" value="<?php echo $ROW['postid'] ?>">
+                    <button style="margin-top:20px;" type="submit" id="submitButton">PŘIDAT</button>
                 </form>
             </div>
 
@@ -135,17 +136,33 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     </main>
     <script>
         function updateCharacterCount() {
-            var text = document.getElementById('postText').value;
-            var charCount = text.length;
+        var text = document.getElementById('postText').value;
+        var charCount = text.length;
 
-            // Omezení délky textu na 300 znaků
-            if (charCount > 300) {
-                document.getElementById('postText').value = text.substring(0, 300);
-                charCount = 300;
-            }
-
-            document.getElementById('charCount').innerText = charCount + '/300';
+        // Omezení délky textu na 300 znaků
+        if (charCount > 300) {
+            document.getElementById('postText').value = text.substring(0, 300);
+            charCount = 300;
         }
+
+        document.getElementById('charCount').innerText = charCount + '/300';
+        document.getElementById('submitButton').disabled = charCount >= 300;
+    }
+
+    window.onload = function () {
+        updateCharacterCount();
+    };
+
+    function validateForm() {
+        var charCount = document.getElementById('postText').value.length;
+
+        if (charCount > 300) {
+            alert("Příspěvek může obsahovat maximálně 300 znaků.");
+            return false;
+        }
+
+        return true;
+    }
     </script>
 </body>
 
