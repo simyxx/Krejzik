@@ -24,6 +24,7 @@ A social media site inspired by the brilliant energy drink called Crazy Wolf.
 - [@simyxx](https://www.github.com/simyxx)
 - [@DDurbaa](https://www.github.com/ddurbaa)
 - [@Martinosmera](https://www.github.com/martinosmera)
+- [@vanejo](https://www.github.com/vanejo)
 
 
 ## Feedback
