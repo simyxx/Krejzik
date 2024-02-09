@@ -11,6 +11,7 @@ A social media site inspired by the brilliant energy drink called Crazy Wolf.
 
 ![git1](https://github.com/simyxx/Krejzik/assets/143736812/f4b9ac7c-9c37-4d86-996a-44a800c494fb)
 ![git2](https://github.com/simyxx/Krejzik/assets/143736812/2081592e-ea45-46d8-9f4b-27bc52fabefe)
+<img width="1904" alt="profajl" src="https://github.com/simyxx/Krejzik/assets/119119241/00e18420-282c-42f2-8a71-5a1540d5c50b">
 
 
 ## 🔗 Links
